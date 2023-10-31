@@ -77,21 +77,22 @@ const ContentSesion = ({ inLogin }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     // Estados con la informacion de los inputs
-    const [username, cambiarUsername] = useState("");
+    const [name, cambiarUsername] = useState("");
     const [email, cambiarEmail] = useState("");
     const [password, cambiarPassword] = useState("");
 
     // Contexto del usuario
-    const { createUser, login } = useUser();
+    const { signUp, login } = useUser(); // Cambiado de `createUser` a `signUp`
 
     // Contexto de mensaje
     const { newMessage } = useMessage();
-    
+
     const navigate = useNavigate();
 
     const handleResize = () => {
         setWindowWidth(window.innerWidth);
     };
+
     useEffect(() => {
         // Agregar el evento de cambio de tamaño de ventana
         window.addEventListener('resize', handleResize);
@@ -109,27 +110,25 @@ const ContentSesion = ({ inLogin }) => {
         try {
             if (inLogin) {
                 // ** Pestaña de login ** //
-                
-                respuesta = await login({ username, password });
+                respuesta = await login({ 
+                    email, 
+                    password
+                });
             } else {
                 // ** Pestaña de sign Up ** //
 
                 // Crear usuario
-                respuesta = await createUser({
-                    username,
+                respuesta = await signUp({
+                    name,
                     email,
                     password
                 });
             }
-
-            if (respuesta instanceof String) {
-                // En caso de devolver un string es que hubo un error
-                newMessage(respuesta, "error")
-            } else {
-                newMessage(`Bienvenido ${username}`, "exito");
-                navigate("/");
-            }
+            console.log(respuesta)
+            if (typeof respuesta === 'string') newMessage(respuesta, "error");
+            else navigate("/")
         } catch (error) {
+            console.log(error)
             newMessage("Intentelo más tarde", "error");
         }
     }
@@ -138,30 +137,31 @@ const ContentSesion = ({ inLogin }) => {
         <Contenedor>
             <Logo src={windowWidth>550 ? LogoG : LogoP} alt="Logo ParkHub" />
             <Formulario  onSubmit={handleSubmit}>
+                {!inLogin &&
+                    <ContInput>
+                    
+                        <Input 
+                            required
+                            name = "name"
+                            type="text"
+                            placeholder="Nombre"
+                            value={name}
+                            onChange={(e) => cambiarUsername(e.target.value)}
+                        />
+                        <FaUserCircle />
+                    </ContInput>
+                }       
                 <ContInput>
                     <Input 
                         required
-                        name = "username"
-                        type="text"
-                        placeholder="Nombre Usuario"
-                        value={username}
-                        onChange={(e) => cambiarUsername(e.target.value)}
+                        name = "email"
+                        type="email"
+                        placeholder="Correo Electronico"
+                        value={email}
+                        onChange={(e) => cambiarEmail(e.target.value)}
                     />
-                    <FaUserCircle />
+                    <MdEmail />
                 </ContInput>
-                {!inLogin &&
-                    <ContInput>
-                        <Input 
-                            required
-                            name = "email"
-                            type="email"
-                            placeholder="Correo Electronico"
-                            value={email}
-                            onChange={(e) => cambiarEmail(e.target.value)}
-                        />
-                        <MdEmail />
-                    </ContInput>
-                }
                 <ContInput>
                     <Input 
                         required
