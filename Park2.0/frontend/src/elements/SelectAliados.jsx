@@ -5,6 +5,8 @@ import EAFIT from "../images/aliados/eafit.png"
 import UPB from "../images/aliados/upb.png"
 import SANTAFE from "../images/aliados/santafe.png"
 import VIVA from "../images/aliados/viva.jpg"
+import React, { useState } from "react";
+
 
 const Contenedor = styled.article`
     margin: 20px auto;
@@ -17,30 +19,37 @@ const Contenedor = styled.article`
     }
 `
 const ContenedorAliado = styled.img`
+    cursor: pointer;
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 1px solid #000;
+    border: 2.5px solid ${(props) => (props.isSelected ? "#650099" : "#000")};
     margin: 0 5px;
 
     @media (max-width: 800px) {
         width: 60px;
         height: 60px;
     }
-`
+`;
 
 const SelectAliados = () => {
+    const [aliadoSeleccionado, setAliadoSeleccionado] = useState(null);
     const aliados = [EIA, EAFIT, UPB, SANTAFE, VIVA];
+    const seleccionarAliado = (index) => {
+        setAliadoSeleccionado(index);
+    };
+
 
     return (
         <Contenedor>
             <ContenedorScroll size="full" $alineado="centro">
-                {aliados.map((aliado,index) => {
+            {aliados.map((aliado, index) => {
+                    const isSelected = aliadoSeleccionado === index;
                     return (
-                        <div key={index}>
-                            <ContenedorAliado src={aliado} />
+                        <div key={index} onClick={() => seleccionarAliado(index)}>
+                            <ContenedorAliado src={aliado} isSelected={isSelected} />
                         </div>
-                    )
+                    );
                 })}
             </ContenedorScroll>
         </Contenedor>
