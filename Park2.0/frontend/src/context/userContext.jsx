@@ -23,12 +23,9 @@ export const UserContextProvider = (props) => {
 
     const getStorage = async () => {
         try {
-            const savedUserData = localStorage.getItem('userData');
-
-            if (savedUserData) {
-                const usuario = await getUser(savedUserData)
-                if (usuario) setUser(usuario)
-            }
+            return_id = localStorage.getItem("userData");
+            console.log(return_id)
+            return return_id
         } catch (error) {
             console.error(error)
             console.log("No se pudo recuperar la informacion, vuelva a loguearse")
