@@ -2,7 +2,7 @@ import axios from "axios"
 
 import { createContext, useContext, useState } from "react"
 import { validarEmail, validarPassword } from "../functions/Formularios";
-
+ 
 const API_BASE_URL = 'http://localhost:8000';
 const userContext = createContext();
 

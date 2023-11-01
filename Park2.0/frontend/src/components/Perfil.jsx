@@ -80,7 +80,6 @@ const ContenedorImagen = styled.div`
 
 const Perfil = () => {
     const [imagen, cambiarImagen] = useState(null)
-
     const [password, cambiarPassword] = useState("");
     const [nombre, cambiarNombre] = useState("");
     const [telefono, cambiarTelefono] = useState("");

@@ -17,10 +17,41 @@ text-align: center;
 margin: 10px auto;
 
 `
+
+const ContenedorBotones = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 20px;
+
+    button {
+        width: 200px;
+        height: 50px;
+        margin: 20px;
+        border: none;
+        border-radius: 20px;
+        color: #fff;
+        background-color: #650099;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: 0.5s all ease;
+
+        &:hover { background-color: #43A854 ; }
+        
+    @media (max-width: 550px) {
+        width: 150px;
+        height: 40px;
+    }
+
+    }
+
+
+`
 const Boton = styled.button`
     align-items: center;
-    border: none;;
-    background: #11111f;
+    border: none;
+    background: '#650099';
     border-radius: 20px;
     width: 200px;
     height: 50px;
@@ -32,7 +63,6 @@ const Boton = styled.button`
     transition: 0.5s all ease;
 
     
-    &:hover { color: "#fff"; }
 
 
     @media (max-width: 550px) {
@@ -49,6 +79,20 @@ const Reserva = () => {
     const handleSeleccionHora = (hora) => {
         setHoraSeleccionada(hora);
       };
+
+    const handleReservar = async () => {
+
+        try {
+            const response = await reservar({
+                username: nombre,
+                phone: telefono,
+                address: direccion,
+            })
+            console.log(response)
+        } catch (error) {
+            console.error(error)
+        }
+    }
     
     const horas = [
         '06:00 AM',
@@ -98,9 +142,10 @@ const Reserva = () => {
             
 
                 </Mitad>  
-                <Contenedor1> 
-                    <Boton>{"Listo"}</Boton>
-                </Contenedor1>
+                <ContenedorBotones>
+                <button className="reserva" onClick={handleReserva}>Listo</button>
+                </ContenedorBotones>
+            
             </ContenedorSombra>
         </Layout>
     )
