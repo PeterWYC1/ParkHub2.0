@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useUser, UserContextProvider } from "../context/userContext"
 
 
+
 const Contenedor1 = styled.article`
 display: flex;
 flex-direction: column;
@@ -146,7 +147,7 @@ const Reserva = () => {
 
                 </Mitad>  
                 <ContenedorBotones>
-                <button className="reserva" onClick={handleReserva} >Listo</button>
+                <button >Listo</button>
                 </ContenedorBotones>
             
             </ContenedorSombra>

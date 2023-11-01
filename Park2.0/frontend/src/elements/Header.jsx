@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import colores from "../styles/colores";
 import LogoB from "../images/logoB.png";
@@ -67,13 +68,14 @@ const Usuario = styled.div`
 
 
 const Header = ({ paginaActual="" }) => {
+    const navigate = useNavigate();
     const paginas = ["Principal", "Reservar", "Historial", "Organización"];
 
     return (
         <Contenedor>
             <Menu paginaActual={paginaActual} />
             <Navegar>
-                <Logo src={LogoB} alt="Logo ParkHub" />
+                <Logo src={LogoB} alt="Logo ParkHub" onClick={() => navigate("/")} />
                 <Botones>
                     {paginas.map((pagina) => (
                         <p key={pagina} className={paginaActual===pagina ? "active" : ""}>{pagina}</p>

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Imagen from "../images/carrusel/parqueadero1.png"
 import { AiOutlineArrowDown } from "react-icons/ai"
@@ -78,6 +79,7 @@ const SeguirLeyendo = styled.article`
 
 
 const Info = () => {
+    const navigate = useNavigate();
     const [seguirLeyendo, setSeguirLeyendo] = useState(false)
     
     const handleClick = () => {
