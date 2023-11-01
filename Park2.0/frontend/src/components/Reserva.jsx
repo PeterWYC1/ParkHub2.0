@@ -7,7 +7,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useUser, UserContextProvider } from "../context/userContext";
 import { format } from 'date-fns';
-
+import { useMessage } from "../context/messageContext";
+import { useNavigate } from "react-router-dom";
 
 
 const Contenedor1 = styled.article`
@@ -18,7 +19,6 @@ text-align: center;
 margin: 10px auto;
 
 `
-
 const ContenedorBotones = styled.div`
     display: flex;
     flex-direction: column;
@@ -46,8 +46,6 @@ const ContenedorBotones = styled.div`
     }
 
     }
-
-
 `
 const Boton = styled.button`
     align-items: center;
@@ -72,16 +70,19 @@ const Boton = styled.button`
     }
 `
 
-
 const Reserva = () => {
     const [hour, setHoraSeleccionada] = useState(null);
     const [date, setStartDate] = useState(new Date());
+    const [mensajeReserva, setMensajeReserva] = useState("");
 
     const { user, addBooking } = useUser();
 
+    const { newMessage } = useMessage();
+
+    const navigate = useNavigate();
+
     const handleSeleccionHora = (hora) => {
         setHoraSeleccionada(hora);
-        console.log(date)
     };
 
     const handleReserva = async () => {
@@ -92,10 +93,17 @@ const Reserva = () => {
                 date: formattedDate,
                 hour
             })
-            console.log(response)
-            return response
+            
+            if (response != null) {
+                setMensajeReserva('Reserva completada correctamente. Su número de parqueadero es ' + response["number"]); 
+            } else {
+                setMensajeReserva('Hubo un error al procesar la reserva.');
+            }
+
+
         } catch (error) {
             console.error(error)
+            setMensajeReserva('Hubo un error al procesar la reserva.');
         }
     }
     
@@ -146,13 +154,14 @@ const Reserva = () => {
                
                     </Contenedor1>
                     </div>
-            
+
 
                 </Mitad>  
                 <ContenedorBotones>
-                <button >Listo</button>
+                <button onClick={handleReserva}>Listo</button>
                 </ContenedorBotones>
-            
+                
+                {mensajeReserva && <div className="mensajeReserva">{mensajeReserva}</div>} 
             </ContenedorSombra>
         </Layout>
     )
