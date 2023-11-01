@@ -5,8 +5,7 @@ import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import SelectAliados from "../elements/SelectAliados";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-
+import { useUser, UserContextProvider } from "../context/userContext"
 
 
 const Contenedor1 = styled.article`
@@ -73,14 +72,16 @@ const Boton = styled.button`
 
 
 const Reserva = () => {
-    const [horaSeleccionada, setHoraSeleccionada] = useState(null);
-    const [startDate, setStartDate] = useState(new Date());
+    const [hour, setHoraSeleccionada] = useState(null);
+    const [date, setStartDate] = useState(new Date());
+
+
 
     const handleSeleccionHora = (hora) => {
         setHoraSeleccionada(hora);
-      };
+    };
 
-    const handleReservar = async () => {
+    const handleReserva = async () => {
 
         try {
             const response = await reservar({
@@ -107,7 +108,9 @@ const Reserva = () => {
         '03:00 PM',
         '04:00 PM',
         '05:00 PM',
-      ];
+    ];
+    
+    const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
     
     return(
         <Layout>
@@ -118,7 +121,7 @@ const Reserva = () => {
                     <div>
                     <h2>Seleccionar Fecha</h2>
                     <Contenedor1>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                    <DatePicker selected={date} onChange={(date) => setStartDate(date)} />
                     </Contenedor1>
                     </div>
                     <div>
@@ -126,7 +129,7 @@ const Reserva = () => {
 
                     <Contenedor1>
                     <div>
-                        <select value={horaSeleccionada} onChange={(e) => handleSeleccionHora(e.target.value)}>
+                        <select value={hour} onChange={(e) => handleSeleccionHora(e.target.value)}>
                             <option value={null}>Selecciona una hora</option>
                                 {horas.map((hora, index) => (
                                     <option key={index} value={hora}>
@@ -134,7 +137,7 @@ const Reserva = () => {
                                     </option>
                                     ))}
                         </select>
-                        {horaSeleccionada && <p>Has seleccionado: {horaSeleccionada}</p>}
+                        {hour && <p>Has seleccionado: {hour}</p>}
                     </div>
                
                     </Contenedor1>
