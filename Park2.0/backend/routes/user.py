@@ -7,6 +7,7 @@ from passlib.context import CryptContext
 from typing import List
 import bcrypt
 import uuid
+from datetime import datetime
 
 user = APIRouter()
 
@@ -15,14 +16,14 @@ pwd_context = CryptContext(schemes=['bcrypt'], deprecated="auto")
 
 
 @user.get(
-    "/users/{email}",
+    "/users/{id}",
     tags=["users"],
-    description="Get a single user by Email",
+    description="Get a single user by id",
 )
-def get_user(email: str):
+def get_user(id: str):
     try:
-        consulta = text("SELECT * FROM user WHERE user.email = :email")
-        user_return = session.execute(consulta, {"email" : email}).first()
+        consulta = text("SELECT * FROM user WHERE user.id = :id")
+        user_return = session.execute(consulta, {"id" : id}).first()
         if user_return is not None:
             return user_return._asdict()
         else:
@@ -132,11 +133,27 @@ def get_parking_lot(company_id : str):
         return None
     finally:
         session.close()
+
+
+@user.get("/get_parking_number", tags=["company"], description="Get the parking number")
+def get_parking_number(parking_id : str):
+    try:
+        consulta = text("SELECT number FROM parking_lot WHERE parking_lot.id = :id")
+        return session.execute(consulta, {"id" : parking_id}).first()._asdict()
+    except Exception as e:
+        print(f"Error al insertar en la base de datos: {e}")
+        return None
+    finally:
+        session.close()
         
 
 @user.post("/add_booking", tags=["booking"], description="Make a reservation")
 def add_booking(b : Booking):
     try:
+        # if b.date is not None:
+        #     b.date = datetime.strptime(b.date, '%Y-%m-%d')
+        #     date_str = b.date.strftime('%Y-%m-%d')
+        
         parking_lot = get_parking_lot(b.company_id)
         
         consulta = text("SELECT * FROM booking WHERE booking.parking_lot_id = :parking_lot_id AND booking.date = :date")
@@ -153,8 +170,9 @@ def add_booking(b : Booking):
         session.execute(consulta, valores)
         session.commit()
         
-        consulta = text("SELECT * FROM booking WHERE booking.id = :id")
-        return session.execute(consulta, {"id" : new_id}).first()._asdict()
+        # consulta = text("SELECT * FROM booking WHERE booking.id = :id")
+        # return session.execute(consulta, {"id" : new_id}).first()._asdict()
+        return get_parking_number(parking_lot["id"])
     except Exception as e:
         print(f"Error al insertar en la base de datos: {e}")
         return None

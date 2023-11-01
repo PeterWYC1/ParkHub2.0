@@ -15,7 +15,7 @@ export const useUser = () => {
 
 export const UserContextProvider = (props) => {
     const [user, setUser] = useState(null);
-    const [uuid, setUuid] = useState('');
+    const [uuid, setUuid] = useState("");
 
     const actualizarStorage = (usuario) => {
         localStorage.setItem("userData", usuario.id);
@@ -23,16 +23,18 @@ export const UserContextProvider = (props) => {
         setUuid(usuario.id)
     }
 
-    const getStorage = async () => {
-        try {
-            id = localStorage.getItem("userData");
-            setUuid(id)
-            return id
-        } catch (error) {
-            console.error(error)
-            console.log("No se pudo recuperar la informacion, vuelva a loguearse")
-        }
-    }
+    // const getStorage = async () => {
+    //     try {
+    //         const return_id = localStorage.getItem("userData");
+    //         console.log(return_id)
+    //         setUuid(return_id)
+    //         console.log(uuid)
+    //         return return_id
+    //     } catch (error) {
+    //         console.error(error)
+    //         console.log("No se pudo recuperar la informacion, vuelva a loguearse")
+    //     }
+    // }
 
     const getUser = async (buscar) => {
         try {
@@ -96,12 +98,13 @@ export const UserContextProvider = (props) => {
         }
     }
 
-    const addBooking = async ({ user_id, company_id, date, hour }) => {
+    const addBooking = async ({ date, hour }) => {
         try {
+            const return_id = localStorage.getItem("userData");
 
             const response = await axios.post(`${API_BASE_URL}/add_booking`, {
-                uuid,
-                company_id,
+                "user_id" : return_id,
+                company_id: "b8e1611e-b7b7-4832-918f-cfb794d684b9",
                 date, 
                 hour
             });
@@ -120,7 +123,7 @@ export const UserContextProvider = (props) => {
             value={{
                 user,
                 getUser,
-                getStorage,
+                // getStorage,
                 login,
                 setUser,
                 signUp,
