@@ -5,8 +5,7 @@ import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import SelectAliados from "../elements/SelectAliados";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-
+import { useUser, UserContextProvider } from "../context/userContext"
 
 
 const Contenedor1 = styled.article`
@@ -16,6 +15,29 @@ align-items: center;
 text-align: center;
 margin: 10px auto;
 
+`
+const Boton = styled.button`
+    align-items: center;
+    border: none;;
+    background: #11111f;
+    border-radius: 20px;
+    width: 200px;
+    height: 50px;
+    margin: 20px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.5s all ease;
+
+    
+    &:hover { color: "#fff"; }
+
+
+    @media (max-width: 550px) {
+        width: 150px;
+        height: 40px;
+    }
 `
 
 const ContenedorBotones = styled.div`
@@ -73,6 +95,7 @@ const Boton = styled.button`
 
 
 const Reserva = () => {
+<<<<<<< HEAD
     const [horaSeleccionada, setHoraSeleccionada] = useState(null);
     const [startDate, setStartDate] = useState(new Date());
 
@@ -81,6 +104,18 @@ const Reserva = () => {
       };
 
     const handleReservar = async () => {
+=======
+    const [hour, setHoraSeleccionada] = useState(null);
+    const [date, setStartDate] = useState(new Date());
+
+
+
+    const handleSeleccionHora = (hora) => {
+        setHoraSeleccionada(hora);
+    };
+
+    const handleReserva = async () => {
+>>>>>>> TomasL
 
         try {
             const response = await reservar({
@@ -107,7 +142,13 @@ const Reserva = () => {
         '03:00 PM',
         '04:00 PM',
         '05:00 PM',
+<<<<<<< HEAD
       ];
+=======
+    ];
+    
+    const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
+>>>>>>> TomasL
     
     return(
         <Layout>
@@ -118,7 +159,7 @@ const Reserva = () => {
                     <div>
                     <h2>Seleccionar Fecha</h2>
                     <Contenedor1>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                    <DatePicker selected={date} onChange={(date) => setStartDate(date)} />
                     </Contenedor1>
                     </div>
                     <div>
@@ -126,7 +167,11 @@ const Reserva = () => {
 
                     <Contenedor1>
                     <div>
+<<<<<<< HEAD
                         <select value={horaSeleccionada} onChange={(e) => handleSeleccionHora(e.target.value)}>
+=======
+                        <select value={hour} onChange={(e) => handleSeleccionHora(e.target.value)}>
+>>>>>>> TomasL
                             <option value={null}>Selecciona una hora</option>
                                 {horas.map((hora, index) => (
                                     <option key={index} value={hora}>
@@ -134,7 +179,11 @@ const Reserva = () => {
                                     </option>
                                     ))}
                         </select>
+<<<<<<< HEAD
                         {horaSeleccionada && <p>Has seleccionado: {horaSeleccionada}</p>}
+=======
+                        {hour && <p>Has seleccionado: {hour}</p>}
+>>>>>>> TomasL
                     </div>
                
                     </Contenedor1>
@@ -142,10 +191,16 @@ const Reserva = () => {
             
 
                 </Mitad>  
+<<<<<<< HEAD
                 <ContenedorBotones>
                 <button className="reserva" onClick={handleReserva}>Listo</button>
                 </ContenedorBotones>
             
+=======
+                <Contenedor1> 
+                <button className="reserva" onClick={handleReserva}>Listo</button>
+                </Contenedor1>
+>>>>>>> TomasL
             </ContenedorSombra>
         </Layout>
     )
