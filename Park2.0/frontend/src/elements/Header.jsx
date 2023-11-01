@@ -3,6 +3,7 @@ import colores from "../styles/colores";
 import LogoB from "../images/logoB.png";
 import { FaUserCircle } from "react-icons/fa";
 import Menu from "../components/Menu";
+import { useUser } from "../context/userContext";
 
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};
@@ -68,6 +69,10 @@ const Usuario = styled.div`
 
 const Header = ({ paginaActual="" }) => {
     const paginas = ["Principal", "Reservar", "Historial", "Organización"];
+    // const { uuid, getStorage, getUser } = useUser()
+
+    // getStorage()
+    // usuario = getUser(uuid)
 
     return (
         <Contenedor>
@@ -81,6 +86,7 @@ const Header = ({ paginaActual="" }) => {
                 </Botones>
             </Navegar>
             <Usuario>
+                {/* <p>{usuario ?  usuario[1] : "Anonymous"}</p> */}
                 <p>Anonymous</p>
                 <FaUserCircle />
             </Usuario>
