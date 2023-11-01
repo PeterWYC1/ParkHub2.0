@@ -143,7 +143,7 @@ const Reserva = () => {
 
                 </Mitad>  
                 <ContenedorBotones>
-                <button className="reserva" onClick={handleReserva}>Listo</button>
+                <button className="reserva" onClick={handleReserva} >Listo</button>
                 </ContenedorBotones>
             
             </ContenedorSombra>
