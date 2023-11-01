@@ -15,17 +15,19 @@ export const useUser = () => {
 
 export const UserContextProvider = (props) => {
     const [user, setUser] = useState(null);
+    const [uuid, setUuid] = useState('');
 
     const actualizarStorage = (usuario) => {
         localStorage.setItem("userData", usuario.id);
         setUser(usuario?.usuario);
+        setUuid(usuario.id)
     }
 
     const getStorage = async () => {
         try {
-            return_id = localStorage.getItem("userData");
-            console.log(return_id)
-            return return_id
+            id = localStorage.getItem("userData");
+            setUuid(id)
+            return id
         } catch (error) {
             console.error(error)
             console.log("No se pudo recuperar la informacion, vuelva a loguearse")
@@ -94,6 +96,25 @@ export const UserContextProvider = (props) => {
         }
     }
 
+    const addBooking = async ({ user_id, company_id, date, hour }) => {
+        try {
+
+            const response = await axios.post(`${API_BASE_URL}/add_booking`, {
+                uuid,
+                company_id,
+                date, 
+                hour
+            });
+
+            if (response.data == null)  return "No hay parqueaderos disponibles";
+
+            return response.data;
+        } catch (error) {
+            console.log(error)
+            throw new Error("Intentelo más tarde");         
+        }
+    }
+
     return (
         <userContext.Provider
             value={{
@@ -103,6 +124,7 @@ export const UserContextProvider = (props) => {
                 login,
                 setUser,
                 signUp,
+                addBooking,
             }}
         >
             {props.children}
