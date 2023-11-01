@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -94,6 +95,7 @@ const Boton = styled.div`
 
 
 const Carrusel = () => {
+    const navigate = useNavigate();
     const imagenes = [parqueadero1, parqueadero2]
 
     return (
@@ -103,7 +105,7 @@ const Carrusel = () => {
                 <div>
                     <Boton>
                         <TbCalendarPlus />
-                        <p>Reservar</p>
+                        <p onClick={() => navigate("/reserva")}>Reservar</p>
                         <TbCalendarPlus />
                     </Boton>
                     <Boton>

@@ -5,7 +5,7 @@ import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import SelectAliados from "../elements/SelectAliados";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -143,7 +143,7 @@ const Reserva = () => {
 
                 </Mitad>  
                 <ContenedorBotones>
-                <button className="reserva" onClick={handleReserva} >Listo</button>
+                <button >Listo</button>
                 </ContenedorBotones>
             
             </ContenedorSombra>
