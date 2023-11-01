@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useUser } from "./context/userContext"
+// import { useUser } from "./context/userContext"
 
 
 import Reserva from "./components/Reserva";
@@ -9,13 +9,14 @@ import Sesion from './components/Sesion';
 import Perfil from './components/Perfil';
 
 const Ruteo = () => {
-    const { user, getStorage } = useUser();
+    // const { user, getStorage } = useUser();
 
     useEffect(() => {
-        if (!user) {
-            getStorage();
+        const savedUserData = localStorage.getItem('userData');
+        if (savedUserData) {
+          localStorage.setItem('userData', savedUserData);
         }
-      }, [user, getStorage]);
+      }, []);
 
     return (
         <BrowserRouter>

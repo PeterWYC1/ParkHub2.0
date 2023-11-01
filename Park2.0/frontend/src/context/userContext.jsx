@@ -20,36 +20,12 @@ export const UserContextProvider = (props) => {
         localStorage.setItem("userData", usuario.id);
         setUser(usuario?.usuario);
     }
-    
-    const deleteUser = async (id) => {
-        try {
-            const response = await axios.put(API_BASE_URL + "/delete/" + id);
-            return response ? "Se elimino correctamente" : "Ocurrio un error, intentelo más tarde";
-        } catch (error) {
-            console.error(error)
-            return null;
-        }
-    }
-    
-    const editUser = async (usuario) => {
-        try {
-            const response = await axios.put(API_BASE_URL + "/update_profile", usuario);
-            actualizarStorage(response)
-            return response;
-        } catch (error) {
-            console.error(error)
-            return null;
-        }
-    }
 
     const getStorage = async () => {
         try {
-            const savedUserData = localStorage.getItem('userData');
-
-            if (savedUserData) {
-                const usuario = await getUser(savedUserData)
-                if (usuario) setUser(usuario)
-            }
+            return_id = localStorage.getItem("userData");
+            console.log(return_id)
+            return return_id
         } catch (error) {
             console.error(error)
             console.log("No se pudo recuperar la informacion, vuelva a loguearse")
@@ -67,45 +43,53 @@ export const UserContextProvider = (props) => {
         }
     }
     
-    const login = async ({ username, password }) => {
+    const login = async ({ email, password }) => {
         try {
             if (!validarPassword(password)) return "La contraseña no es valida";
 
             // SI ES NULL NO SE PUEDE
             const response = await axios.post(
                                 `${API_BASE_URL}/login`,
-                                { username, password }
+                                { email, password }
             );
             
-            if (response==null)  return "Usuario o contraseña incorrectos";
+            if (response.data==null)  return "Usuario o contraseña incorrectos";
 
-            const usuario = response.usuario;
-            actualizarStorage(usuario.id);
+            const usuario = response.data;
+            actualizarStorage(usuario);
+
+            setUser(usuario)
 
             return usuario;
         } catch (error) {
+            console.log(error)
             throw new Error("Intentelo más tarde");
         }
     }
 
-    const signUp = async ({ username, email, password }) => {
+    const signUp = async ({ name, email, password }) => {
         try {
-            if (!validarEmail(email)) return "Email no valido";
+            // if (!validarEmail(email)) return "Email no valido";
             if (!validarPassword(password)) return "La contraseña no es valida";
 
-            const response = await axios.post(API_BASE_URL + "/signup", {
-                username,
+            console.log({ name, email, password })
+
+            const response = await axios.post(`${API_BASE_URL}/signup`, {
+                name,
                 email,
                 password
             });
 
-            if (response==null)  return "Nombre de usuario existente";
+            if (response.data == null)  return "Correo existente";
 
-            const usuario = response.usuario;
-            actualizarStorage(usuario.id);
+            const usuario = response.data;
+            actualizarStorage(usuario);
+
+            setUser(usuario)
 
             return usuario;
         } catch (error) {
+            console.log(error)
             throw new Error("Intentelo más tarde");         
         }
     }
@@ -114,8 +98,6 @@ export const UserContextProvider = (props) => {
         <userContext.Provider
             value={{
                 user,
-                deleteUser,
-                editUser,
                 getUser,
                 getStorage,
                 login,
