@@ -23,7 +23,7 @@ const ContenedorAliado = styled.img`
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2.8px solid ${(props) => (props.isSelected ? "#650099" : "#000")};
+    border: 2.8px solid ${(props) => (props.isselected ? "#650099" : "#000")};
     margin: 0 5px;
 
     @media (max-width: 800px) {
@@ -44,10 +44,10 @@ const SelectAliados = () => {
         <Contenedor>
             <ContenedorScroll size="full" $alineado="centro">
             {aliados.map((aliado, index) => {
-                    const isSelected = aliadoSeleccionado === index;
+                    const isselected = aliadoSeleccionado === index;
                     return (
                         <div key={index} onClick={() => seleccionarAliado(index)}>
-                            <ContenedorAliado src={aliado} isSelected={isSelected} />
+                            <ContenedorAliado src={aliado} isselected={isselected} />
                         </div>
                     );
                 })}
