@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { AiOutlineArrowDown } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Imagen from "../images/carrusel/parqueadero1.png"
-import { AiOutlineArrowDown } from "react-icons/ai"
-import { useState } from "react";
+import Imagen from "../images/carrusel/parqueadero1.png";
 
 const Contenedor = styled.article`
     display: flex;

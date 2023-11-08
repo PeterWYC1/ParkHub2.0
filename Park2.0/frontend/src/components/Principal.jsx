@@ -1,7 +1,7 @@
-import Layout from "./Layout"
+import Aliados from "../elements/Aliados";
 import Carrusel from "../elements/Carrusel";
 import Info from "../elements/Info";
-import Aliados from "../elements/Aliados";
+import Layout from "./Layout";
 
 import styled from "styled-components";
 import colores from "../styles/colores";

@@ -1,11 +1,11 @@
+import { FaHistory } from "react-icons/fa";
+import { TbCalendarPlus } from "react-icons/tb";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import { TbCalendarPlus } from "react-icons/tb";
-import { FaHistory } from "react-icons/fa";
-import parqueadero1 from "../images/carrusel/parqueadero1.png"
-import parqueadero2 from "../images/carrusel/parqueadero2.jpg"
+import parqueadero1 from "../images/carrusel/parqueadero1.png";
+import parqueadero2 from "../images/carrusel/parqueadero2.jpg";
 import colores from "../styles/colores";
 
 const CarruselContenedor = styled.div`

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Layout from "./Layout";
 import styled from "styled-components";
+import { useUser } from "../context/userContext";
+import ImgDefect from "../images/usuario.png";
 import colores from "../styles/colores";
 import { ContenedorSombra, Formulario, Input, Tercio } from "../styles/varios";
-import { useUser } from "../context/userContext"
-import ImgDefect from "../images/usuario.png"
+import Layout from "./Layout";
 
 const ContenedorInput = styled.div`
     margin: 5px 0;

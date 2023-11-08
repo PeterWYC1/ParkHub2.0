@@ -1,9 +1,9 @@
+import { AiOutlineInstagram, AiOutlineMail } from "react-icons/ai";
+import { BsWhatsapp } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Logo from "../images/logoM.png";
 import colores from "../styles/colores";
-import Logo from "../images/logoM.png"
-import { AiOutlineMail, AiOutlineInstagram } from "react-icons/ai"
-import { BsWhatsapp } from "react-icons/bs"
 
 const ContenedorFooter = styled.footer`
     background-color: ${colores.oscuro};

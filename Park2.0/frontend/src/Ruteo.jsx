@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { useUser } from "./context/userContext"
 
 
-import Reserva from "./components/Reserva";
-import Principal from './components/Principal';
-import Sesion from './components/Sesion';
-import Perfil from './components/Perfil';
 import Historial from './components/Historial';
 import Organizacion from './components/Organizacion';
+import Perfil from './components/Perfil';
+import Principal from './components/Principal';
+import Reserva from "./components/Reserva";
+import Sesion from './components/Sesion';
 
 const Ruteo = () => {
     // const { user, getStorage } = useUser();
