@@ -1,10 +1,10 @@
 import styled from "styled-components";
+import EAFIT from "../images/aliados/eafit.png";
+import EIA from "../images/aliados/eia.jpg";
+import SANTAFE from "../images/aliados/santafe.png";
+import UPB from "../images/aliados/upb.png";
+import VIVA from "../images/aliados/viva.jpg";
 import { ContenedorScroll } from "../styles/varios";
-import EIA from "../images/aliados/eia.jpg"
-import EAFIT from "../images/aliados/eafit.png"
-import UPB from "../images/aliados/upb.png"
-import SANTAFE from "../images/aliados/santafe.png"
-import VIVA from "../images/aliados/viva.jpg"
 
 const Contenedor = styled.article`
     margin: 20px auto;

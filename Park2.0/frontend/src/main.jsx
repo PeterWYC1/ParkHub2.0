@@ -1,9 +1,9 @@
 import './styles/main.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom/client'
-import { UserContextProvider } from './context/userContext';
+import ReactDOM from 'react-dom/client';
 import { MessageContextProvider } from './context/messageContext';
+import { UserContextProvider } from './context/userContext';
 
 import Ruteo from './Ruteo';
 

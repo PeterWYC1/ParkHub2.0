@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import styled from "styled-components";
-import colores from "../styles/colores";
 import { AiOutlineClose } from "react-icons/ai";
-import { FaHome, FaHistory, FaUserCircle } from "react-icons/fa";
+import { FaHistory, FaHome, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { TbCalendarPlus } from "react-icons/tb";
-import Estacionamiento from "../images/estacionamiento.png" 
+import styled from "styled-components";
+import Estacionamiento from "../images/estacionamiento.png";
+import colores from "../styles/colores";
 
 const BotonMenu = styled.span`
     @media (min-width: 800px) {

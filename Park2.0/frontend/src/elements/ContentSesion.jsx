@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/userContext"
 import { useMessage } from "../context/messageContext";
+import { useUser } from "../context/userContext";
 
+import { FaUserCircle } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 import styled from "styled-components";
-import colores from "../styles/colores";
-import { Formulario, Input } from "../styles/varios";
 import LogoG from "../images/logoB.png";
 import LogoP from "../images/logo_blanco.png";
-import { FaUserCircle } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { MdEmail } from "react-icons/md";
+import colores from "../styles/colores";
+import { Formulario, Input } from "../styles/varios";
 
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};

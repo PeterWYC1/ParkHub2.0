@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { ContenedorScroll } from "../styles/varios";
-import EIA from "../images/aliados/eia.jpg"
-import EAFIT from "../images/aliados/eafit.png"
-import UPB from "../images/aliados/upb.png"
-import SANTAFE from "../images/aliados/santafe.png"
-import VIVA from "../images/aliados/viva.jpg"
 import React, { useState } from "react";
+import styled from "styled-components";
+import EAFIT from "../images/aliados/eafit.png";
+import EIA from "../images/aliados/eia.jpg";
+import SANTAFE from "../images/aliados/santafe.png";
+import UPB from "../images/aliados/upb.png";
+import VIVA from "../images/aliados/viva.jpg";
+import { ContenedorScroll } from "../styles/varios";
 
 
 const Contenedor = styled.article`
@@ -23,7 +23,7 @@ const ContenedorAliado = styled.img`
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2.8px solid ${(props) => (props.isSelected ? "#650099" : "#000")};
+    border: 2.8px solid ${(props) => (props.isselected ? "#650099" : "#000")};
     margin: 0 5px;
 
     @media (max-width: 800px) {
@@ -44,10 +44,10 @@ const SelectAliados = () => {
         <Contenedor>
             <ContenedorScroll size="full" $alineado="centro">
             {aliados.map((aliado, index) => {
-                    const isSelected = aliadoSeleccionado === index;
+                    const isselected = aliadoSeleccionado === index;
                     return (
                         <div key={index} onClick={() => seleccionarAliado(index)}>
-                            <ContenedorAliado src={aliado} isSelected={isSelected} />
+                            <ContenedorAliado src={aliado} isselected={isselected} />
                         </div>
                     );
                 })}

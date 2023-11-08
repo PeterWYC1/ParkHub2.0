@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "./Layout";
-import styled from "styled-components";
-import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
-import SelectAliados from "../elements/SelectAliados";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useUser, UserContextProvider } from "../context/userContext";
@@ -75,7 +71,7 @@ const Reserva = () => {
     const [date, setStartDate] = useState(new Date());
     const [mensajeReserva, setMensajeReserva] = useState("");
 
-    const { user, addBooking } = useUser();
+
 
     const { newMessage } = useMessage();
 
@@ -88,10 +84,10 @@ const Reserva = () => {
     const handleReserva = async () => {
 
         try {
-            const formattedDate = format(date, 'yyyy-MM-dd');
-            const response = await addBooking({
-                date: formattedDate,
-                hour
+            const response = await reservar({
+                username: nombre,
+                phone: telefono,
+                address: direccion,
             })
             
             if (response != null) {
@@ -133,7 +129,7 @@ const Reserva = () => {
                     <div>
                     <h2>Seleccionar Fecha</h2>
                     <Contenedor1>
-                    <DatePicker selected={date} dateFormat="yyyy-MM-dd" onChange={(date) => setStartDate(date)}/>
+                    <DatePicker selected={date} onChange={(date) => setStartDate(date)} />
                     </Contenedor1>
                     </div>
                     <div>
@@ -158,7 +154,7 @@ const Reserva = () => {
 
                 </Mitad>  
                 <ContenedorBotones>
-                <button onClick={handleReserva}>Listo</button>
+                <button className="reserva" onClick={handleReserva} >Listo</button>
                 </ContenedorBotones>
                 
                 {mensajeReserva && <div className="mensajeReserva">{mensajeReserva}</div>} 

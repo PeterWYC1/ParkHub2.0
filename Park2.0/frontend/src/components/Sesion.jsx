@@ -2,8 +2,8 @@ import { useState } from "react";
 import ContentSesion from "../elements/ContentSesion";
 
 import styled from "styled-components";
+import Imagen from "../images/carrusel/parqueadero2.jpg";
 import colores from "../styles/colores";
-import Imagen from "../images/carrusel/parqueadero2.jpg"
 
 const Fondo = styled.div`
     background-image: url(${Imagen});

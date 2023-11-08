@@ -1,10 +1,10 @@
+import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import colores from "../styles/colores";
-import LogoB from "../images/logoB.png";
-import { FaUserCircle } from "react-icons/fa";
 import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
+import LogoB from "../images/logoB.png";
+import colores from "../styles/colores";
 
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};
