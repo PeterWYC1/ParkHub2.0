@@ -110,7 +110,7 @@ const Carrusel = () => {
                     </Boton>
                     <Boton>
                         <FaHistory />
-                        <p>Historial</p>
+                        <p onClick={() => navigate("/historial")}>Historial</p>
                         <FaHistory />
                     </Boton>
                 </div>
