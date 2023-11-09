@@ -37,7 +37,7 @@ const ContenedorMensaje = styled.article`
  
     p {
         background-color: ${(props) => tiposMensajes[props.$tipo] || '#000'};
-        color: #fff;
+        color: #000;
         padding: 18px 30px;
         border-radius: 0.4rem;
         box-shadow: 0px 0px 15px rgba(0,0,0,.1);
