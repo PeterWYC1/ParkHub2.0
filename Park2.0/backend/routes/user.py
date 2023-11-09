@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from config.db import conn, session
-from schemas.user import User, ParkingLot, Booking, Company
+from schemas.user import User, ParkingLot, Booking, Company, Change
 from datetime import date, time
 from sqlalchemy import select, text
 from passlib.context import CryptContext
@@ -70,25 +70,24 @@ def log_in(u : User):
         
 
 @user.put("/change_password", tags=["users"], description="Login")
-def change_password(email : str, old_password : str, new_password : str):
+def change_password(c : Change):
     try:
         consulta = text('SELECT id FROM user WHERE user.email = :email')
-            user_id = session.execute(consulta, {'email': email}).scalar()
-            if user_id:
-                consulta = text('SELECT password FROM user WHERE user.email = :email')
-                stored_password = session.execute(consulta, {'email': email}).scalar()
-                if pwd_context.verify(old_password, stored_password):
-                    consulta = text("UPDATE user SET user.password = :new_password")
-                    session.execute(consulta, {"new_password" : new_password})
-                    return True
-            return False
+        user_id = session.execute(consulta, {"email": c.email}).scalar()
+        if user_id:
+            consulta = text('SELECT password FROM user WHERE user.email = :email')
+            stored_password = session.execute(consulta, {'email': c.email}).scalar()
+            if pwd_context.verify(c.old_password, stored_password):
+                consulta = text("UPDATE user SET user.password = :new_password")
+                session.execute(consulta, {"new_password" : pwd_context.hash(c.new_password)})
+                session.commit()
+                return True        
+        return False
     except Exception as e:
         print(f"Error al insertar en la base de datos: {e}")
         return None
     finally:
         session.close()
-    
-    
 
 
 @user.post("/add_company", tags=["company"], description="Add a new company")
@@ -200,7 +199,6 @@ def add_booking(b : Booking):
 @user.get("/get_booking/{id}", tags=["booking"], description="Get reservations")
 def get_booking(id : str):
     try:
-        print("*++++++++")
         
         consulta = text("SELECT * FROM booking WHERE booking.id = :id")
         result = session.execute(consulta, {"id" : id}).fetchone()

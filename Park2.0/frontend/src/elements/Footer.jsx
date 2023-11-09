@@ -153,10 +153,8 @@ const Footer = () => {
                     <div>
                         <p onClick={() => navigate("/")}>Principal</p>
                         <p onClick={() => navigate("/reserva")} >Reservar</p>
-                    </div>
-                    <div>
-                        <p>Historial</p>
-                        <p>Organización</p>
+                        <p onClick={() => navigate("/historial")} >Historial</p>
+                        <p onClick={() => navigate("/organizacion")}>Organización</p>
                     </div>
                 </Links>
 

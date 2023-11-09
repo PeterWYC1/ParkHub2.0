@@ -84,15 +84,12 @@ const Header = ({ paginaActual="" }) => {
         "Principal": "/",
         "Reservar":"/reserva",
         "Historial": "/historial", 
-        "Organización": "/organizacion"
+        "Organización": "/organizacion",
     };
     const handleNavigation = (ruta) => {
         navigate(ruta);
     };
-    // const { uuid, getStorage, getUser } = useUser()
 
-    // const return_id = localStorage.getItem("userData");
-    // const usuario = getUser(return_id)
 
     return (
         <Contenedor>
@@ -110,6 +107,8 @@ const Header = ({ paginaActual="" }) => {
                 </Botones>
             </Navegar>
             <Usuario>
+                <p
+                onClick={() => navigate("/sesion")}>Iniciar Sesión</p>
                 {/* <p>{usuario ?  usuario[1] : "Anonymous"}</p> */}
                 <p 
                 onClick={() => navigate("/perfil")}>Anonymous</p>

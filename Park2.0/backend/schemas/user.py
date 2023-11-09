@@ -9,6 +9,11 @@ class User(BaseModel):
     email: Optional[str] = None
     password: Optional[str] = None
 
+class Change(BaseModel):
+    email: str
+    old_password: str
+    new_password: str
+
 class Company(BaseModel):
     id: Optional[str] = None
     name: Optional[str] = None

@@ -63,8 +63,6 @@ export const UserContextProvider = (props) => {
             const usuario = response.data;
             actualizarStorage(usuario);
 
-            setUser(usuario)
-
             return usuario;
         } catch (error) {
             console.log(error)
@@ -72,10 +70,11 @@ export const UserContextProvider = (props) => {
         }
     }
 
-    const signUp = async ({ name, email, password }) => {
+    const signUp = async ({ name, email, password, confirmPassword }) => {
         try {
             // if (!validarEmail(email)) return "Email no valido";
             if (!validarPassword(password)) return "La contraseña no es valida";
+            if (password != confirmPassword) return "Las contraseñas no coinciden";
 
             console.log({ name, email, password })
 
@@ -89,8 +88,6 @@ export const UserContextProvider = (props) => {
 
             const usuario = response.data;
             actualizarStorage(usuario);
-
-            setUser(usuario)
 
             return usuario;
         } catch (error) {
@@ -121,6 +118,28 @@ export const UserContextProvider = (props) => {
         }
     }
 
+    const change_password = async ({ email, old_password, new_password, confirmPassword }) => {
+        try {
+            if (!validarPassword(new_password)) return "La contraseña nueva no es valida";
+            if (new_password != confirmPassword) return "Las contraseñas no coinciden";
+
+            const response = await axios.put(
+                                `${API_BASE_URL}/change_password`,
+                                { email, old_password, new_password }
+            );
+            
+            if (response.data==null)  return "Contraseña incorrecta";
+
+            const usuario = response.data;
+            actualizarStorage(usuario);
+
+            return usuario;
+        } catch (error) {
+            console.log(error)
+            throw new Error("Intentelo más tarde");
+        }
+    }
+
     return (
         <userContext.Provider
             value={{
@@ -131,6 +150,7 @@ export const UserContextProvider = (props) => {
                 setUser,
                 signUp,
                 addBooking,
+                change_password,
             }}
         >
             {props.children}
