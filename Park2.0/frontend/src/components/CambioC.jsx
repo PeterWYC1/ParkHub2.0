@@ -194,6 +194,7 @@ const handleResize = () => {
                         />
                         <RiLockPasswordFill />
                     </ContInput>
+                    
                 <Boton>Confirmar</Boton>
             </Formulario>
         </Contenedor>
