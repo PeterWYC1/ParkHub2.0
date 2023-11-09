@@ -54,10 +54,20 @@ const Usuario = styled.div`
     align-items: center;
     color: ${colores.gris};
 
+    p {
+        margin-right: 15px;
+        cursor: pointer;
+        color: ${colores.gris};
+        transition: all 0.3s;
+    }
+
+    p:hover {
+        color: #fff;
+    }
+
     svg {
-        height: 40px;
-        width: 40px;
-        margin-left: 5px;
+        height: 30px;
+        width: 30px;
         cursor: pointer;
         color: #fff;
     }
@@ -70,7 +80,15 @@ const Usuario = styled.div`
 
 const Header = ({ paginaActual="" }) => {
     const navigate = useNavigate();
-    const paginas = ["Principal", "Reservar", "Historial", "Organización"];
+    const paginas = {
+        "Principal": "/",
+        "Reservar":"/reserva",
+        "Historial": "/historial", 
+        "Organización": "/organizacion"
+    };
+    const handleNavigation = (ruta) => {
+        navigate(ruta);
+    };
     // const { uuid, getStorage, getUser } = useUser()
 
     // getStorage()
@@ -82,14 +100,19 @@ const Header = ({ paginaActual="" }) => {
             <Navegar>
                 <Logo src={LogoB} alt="Logo ParkHub" onClick={() => navigate("/")} />
                 <Botones>
-                    {paginas.map((pagina) => (
-                        <p key={pagina} className={paginaActual===pagina ? "active" : ""}>{pagina}</p>
+                    {Object.keys(paginas).map((pagina) => (
+                        <p 
+                        key={pagina}
+                        className={paginaActual === pagina ? "active" : ""}
+                        onClick={() => handleNavigation(paginas[pagina])}
+                    >{pagina} </p>
                     ))}
                 </Botones>
             </Navegar>
             <Usuario>
                 {/* <p>{usuario ?  usuario[1] : "Anonymous"}</p> */}
-                <p>Anonymous</p>
+                <p 
+                onClick={() => navigate("/perfil")}>Anonymous</p>
                 <FaUserCircle />
             </Usuario>
         </Contenedor>

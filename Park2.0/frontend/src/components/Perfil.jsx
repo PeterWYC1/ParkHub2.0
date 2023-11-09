@@ -124,7 +124,7 @@ const Perfil = () => {
     };
 
     return (
-      <Layout>
+      <Layout paginaActual="Perfil">
         <ContenedorSombra>
           <h2>Mi perfil</h2>
           <Tercio>

@@ -23,6 +23,8 @@ const ContenedorImagen = styled.article`
     @media (max-width: 800px) { height: 300px; }
     @media (max-width: 500px) { height: 250px; }
 `
+
+
 const ContenedorInfo = styled.article`
     position: absolute;
     display: flex;
@@ -55,6 +57,7 @@ const ContenedorInfo = styled.article`
         > div { flex-direction: column; }
     }
 `
+
 const Boton = styled.div`
     width: 250px;
     height: 50px;
@@ -93,6 +96,24 @@ const Boton = styled.div`
     }
 `
 
+const Contenedor1 = styled.article`
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+margin: 10px auto;
+
+> p {
+    margin-top: 60px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+@media (max-width: 800px) {
+ 
+    p { font-size: 20px; }
+`
+
 
 const Carrusel = () => {
     const navigate = useNavigate();
@@ -101,7 +122,7 @@ const Carrusel = () => {
     return (
         <CarruselContenedor>
             <ContenedorInfo>
-                <p>Bienvenido Anonymous</p>
+                <Contenedor1><p>Bienvenido (Username)</p></Contenedor1>
                 <div>
                     <Boton>
                         <TbCalendarPlus />

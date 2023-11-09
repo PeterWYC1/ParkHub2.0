@@ -13,7 +13,7 @@ const Historial = () => {
 
 
     return(
-        <Layout>
+        <Layout  paginaActual="Historial">
             <ContenedorSombra>
 
             </ContenedorSombra>

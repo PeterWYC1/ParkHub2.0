@@ -14,7 +14,7 @@ const Organizacion = () => {
 
 
     return(
-        <Layout>
+        <Layout  paginaActual="Organizacion">
             <CarruselOrg>
 
             </CarruselOrg>

@@ -113,7 +113,7 @@ const Reserva = () => {
     const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
     
     return(
-        <Layout>
+        <Layout paginaActual="Reserva">
             <ContenedorSombra>
                 <Contenedor1><h2>Elija El Destino </h2></Contenedor1>
                 <SelectAliados/>

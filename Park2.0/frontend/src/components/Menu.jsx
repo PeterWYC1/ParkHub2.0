@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FaHistory, FaHome, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { TbCalendarPlus } from "react-icons/tb";
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import Estacionamiento from "../images/estacionamiento.png";
 import colores from "../styles/colores";
@@ -43,20 +44,28 @@ const Navegar = styled.nav`
         color: #fff;
     }
 `
-const Link = styled.section`
+const LinkS = styled(Link)`
     display: flex;
     align-items: center;
     color: ${colores.gris};
     font-size: 14px;
     font-weight: lighter;
     margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
 
-    img, svg {
+    img,
+    svg {
         width: 20px;
         height: 20px;
         margin-right: 10px;
     }
-`
+
+    &:hover {
+        color: #fff;
+    }
+`;
 
 
 const Menu = ({ paginaActual }) => {
@@ -68,22 +77,28 @@ const Menu = ({ paginaActual }) => {
                 <Contenedor>
                     <AiOutlineClose onClick={() => cambiarVisible(false)} />
                     <Navegar>
-                        <Link className={paginaActual==="Principal" ? "active" : ""}>
+                        <LinkS to="/" 
+                            className={paginaActual==="Principal" ? "active" : ""}>
                             <FaHome />Principal
-                        </Link>
-                        <Link className={paginaActual==="Reservar" ? "active" : ""}>
+                        </LinkS>
+                        <LinkS to="/reserva" 
+                             className={paginaActual==="Reserva" ? "active" : ""}>
+                
                             <TbCalendarPlus />Reservar
-                        </Link>
-                        <Link className={paginaActual==="Historial" ? "active" : ""}>
+                        </LinkS>
+                        <LinkS to="/historial" 
+                                className={paginaActual==="Historial" ? "active" : ""}>
                             <FaHistory />Historial
-                        </Link>
-                        <Link className={paginaActual==="Organización" ? "active" : ""}>
+                        </LinkS>
+                        <LinkS to="/organizacion"
+                                className={paginaActual==="Organizacion" ? "active" : ""}>
                             <img src={Estacionamiento} alt="Organización" />Organización
-                        </Link>
+                        </LinkS>
                         <div />
-                        <Link>
+                        <LinkS to="/perfil"
+                                className={paginaActual==="Perfil" ? "active" : ""}>
                             <FaUserCircle />Perfil
-                        </Link>
+                        </LinkS>
                     </Navegar>
                 </Contenedor>
             :
