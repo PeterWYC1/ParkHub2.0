@@ -91,8 +91,8 @@ const Header = ({ paginaActual="" }) => {
     };
     // const { uuid, getStorage, getUser } = useUser()
 
-    // getStorage()
-    // usuario = getUser(uuid)
+    // const return_id = localStorage.getItem("userData");
+    // const usuario = getUser(return_id)
 
     return (
         <Contenedor>

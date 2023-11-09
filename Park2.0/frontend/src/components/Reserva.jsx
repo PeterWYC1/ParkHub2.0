@@ -5,6 +5,10 @@ import { useUser, UserContextProvider } from "../context/userContext";
 import { format } from 'date-fns';
 import { useMessage } from "../context/messageContext";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import SelectAliados from "../elements/SelectAliados";
+import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
+import Layout from "./Layout";
 
 
 const Contenedor1 = styled.article`
@@ -13,7 +17,6 @@ flex-direction: column;
 align-items: center;
 text-align: center;
 margin: 10px auto;
-
 `
 const ContenedorBotones = styled.div`
     display: flex;
@@ -71,9 +74,9 @@ const Reserva = () => {
     const [date, setStartDate] = useState(new Date());
     const [mensajeReserva, setMensajeReserva] = useState("");
 
-
-
     const { newMessage } = useMessage();
+
+    const { addBooking } = useUser()
 
     const navigate = useNavigate();
 
@@ -84,10 +87,10 @@ const Reserva = () => {
     const handleReserva = async () => {
 
         try {
-            const response = await reservar({
-                username: nombre,
-                phone: telefono,
-                address: direccion,
+            const formattedDate = format(date, 'yyyy-MM-dd');
+            const response = await addBooking({
+                date: formattedDate,
+                hour: hour
             })
             
             if (response != null) {
