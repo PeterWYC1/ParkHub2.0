@@ -15,7 +15,20 @@ flex-direction: column;
 align-items: center;
 text-align: center;
 margin: 10px auto;
+
+h2 { 
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+@media (max-width: 800px) {
+    h2 { 
+      font-size: 20px;
+     }
+  }
 `
+
+
 const ContenedorBotones = styled.div`
     display: flex;
     flex-direction: column;
@@ -107,13 +120,17 @@ const Reserva = () => {
         '08:00 AM',
         '09:00 AM',
         '10:00 AM',
+        '11:00 AM',
         '12:00 PM',
+        '01:00 PM',
         '02:00 PM',
-        '04:00 PM',
-        '06:00 PM',
         '03:00 PM',
         '04:00 PM',
         '05:00 PM',
+        '06:00 PM',
+        '07:00 PM',
+        '08:00 PM',
+        
     ];
     
     const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
@@ -121,17 +138,17 @@ const Reserva = () => {
     return(
         <Layout paginaActual="Reserva">
             <ContenedorSombra>
-                <Contenedor1><h2>Elija El Destino </h2></Contenedor1>
+                <Contenedor1><h2>Elija el destino </h2></Contenedor1>
                 <SelectAliados/>
                 <Mitad> 
                     <div>
-                    <h2>Seleccionar Fecha</h2>
+                    <h2>Seleccionar fecha</h2>
                     <Contenedor1>
                     <DatePicker selected={date} onChange={(date) => setStartDate(date)} />
                     </Contenedor1>
                     </div>
                     <div>
-                    <h2>Seleccionar La Hora </h2>
+                    <h2>Seleccionar la hora </h2>
 
                     <Contenedor1>
                     <div>

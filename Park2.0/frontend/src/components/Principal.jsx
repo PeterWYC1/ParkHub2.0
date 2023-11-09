@@ -27,10 +27,20 @@ const ContenedorClick = styled.article`
     }
   }
 
+  p {
+    font-size: 15px;
+    color: #fff;
+ 
+}
+
   @media (max-width: 800px) {
-    p { text-align: center; }
+    p { text-align: center;
+      font-size: 14px;
+     }
   }
 `
+
+
 const Boton = styled.div`
     width: 200px;
     height: 35px;
