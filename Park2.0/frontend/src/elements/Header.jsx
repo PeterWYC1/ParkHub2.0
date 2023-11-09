@@ -71,10 +71,10 @@ const Usuario = styled.div`
 const Header = ({ paginaActual="" }) => {
     const navigate = useNavigate();
     const paginas = ["Principal", "Reservar", "Historial", "Organización"];
-    // const { uuid, getStorage, getUser } = useUser()
+    // const { getUser } = useUser()
 
-    // getStorage()
-    // usuario = getUser(uuid)
+    // const return_id = localStorage.getItem("userData");
+    // const usuario = getUser(return_id)
 
     return (
         <Contenedor>
@@ -88,7 +88,7 @@ const Header = ({ paginaActual="" }) => {
                 </Botones>
             </Navegar>
             <Usuario>
-                {/* <p>{usuario ?  usuario[1] : "Anonymous"}</p> */}
+                {/* <p>{usuario?usuario : "Anonymous"}</p> */}
                 <p>Anonymous</p>
                 <FaUserCircle />
             </Usuario>

@@ -15,10 +15,7 @@ user = APIRouter()
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated="auto") 
 
 
-@user.get(
-    "/users/{id}",
-    tags=["users"],
-    description="Get a single user by id",
+@user.get("/users/{id}", tags=["users"], description="Get a single user by id",
 )
 def get_user(id: str):
     try:
@@ -38,8 +35,8 @@ def sign_up(u: User):
         new_id = str(uuid.uuid4())
         encripted_password = pwd_context.hash(u.password)
         
-        consulta = text('INSERT INTO user VALUES (:uuid, :name, :email, :password)')
-        valores = {"uuid": new_id, "name": u.name, "email": u.email, "password": encripted_password}
+        consulta = text('INSERT INTO user VALUES (:uuid, :name, :email, :password, :date_created)')
+        valores = {"uuid": new_id, "name": u.name, "email": u.email, "password": encripted_password, "date_created": datetime.now()}
         
         session.execute(consulta, valores)      
         session.commit()
@@ -70,6 +67,28 @@ def log_in(u : User):
         return None
     finally:
         session.close()
+        
+
+@user.put("/change_password", tags=["users"], description="Login")
+def change_password(email : str, old_password : str, new_password : str):
+    try:
+        consulta = text('SELECT id FROM user WHERE user.email = :email')
+            user_id = session.execute(consulta, {'email': email}).scalar()
+            if user_id:
+                consulta = text('SELECT password FROM user WHERE user.email = :email')
+                stored_password = session.execute(consulta, {'email': email}).scalar()
+                if pwd_context.verify(old_password, stored_password):
+                    consulta = text("UPDATE user SET user.password = :new_password")
+                    session.execute(consulta, {"new_password" : new_password})
+                    return True
+            return False
+    except Exception as e:
+        print(f"Error al insertar en la base de datos: {e}")
+        return None
+    finally:
+        session.close()
+    
+    
 
 
 @user.post("/add_company", tags=["company"], description="Add a new company")
@@ -165,14 +184,69 @@ def add_booking(b : Booking):
         
         new_id = str(uuid.uuid4())
         
-        consulta = text("INSERT INTO booking VALUES (:id, :user_id, :parking_lot_id, :company_id, :date, :hour)")
-        valores = {"id" : new_id, "user_id" : b.user_id, "parking_lot_id" : parking_lot["id"], "company_id" : b.company_id, "date" : b.date, "hour" : b.hour}
+        consulta = text("INSERT INTO booking VALUES (:id, :user_id, :parking_lot_id, :date, :hour, :date_created)")
+        valores = {"id" : new_id, "user_id" : b.user_id, "parking_lot_id" : parking_lot["id"], "date" : b.date, "hour" : b.hour, "date_created" : datetime.now()}
         session.execute(consulta, valores)
         session.commit()
         
-        # consulta = text("SELECT * FROM booking WHERE booking.id = :id")
-        # return session.execute(consulta, {"id" : new_id}).first()._asdict()
         return get_parking_number(parking_lot["id"])
+    except Exception as e:
+        print(f"Error al insertar en la base de datos: {e}")
+        return None
+    finally:
+        session.close()
+        
+        
+@user.get("/get_booking/{id}", tags=["booking"], description="Get reservations")
+def get_booking(id : str):
+    try:
+        print("*++++++++")
+        
+        consulta = text("SELECT * FROM booking WHERE booking.id = :id")
+        result = session.execute(consulta, {"id" : id}).fetchone()
+        
+        if result:
+            consulta_parking = text("SELECT number FROM parking_lot WHERE id = :id")
+            parking_number = session.execute(consulta_parking, {"id" : result[2]}).fetchone()[0]
+            
+            print(parking_number)
+            
+            booking = {
+                "id" : result[0],
+                "user_id" : result[1],
+                "parking_lot_number" : parking_number,
+                "date" : result[3],
+                "hour" : result[4],
+                "date_created" : result[5]
+            }
+            
+            return booking
+        else:
+            return None
+    except Exception as e:
+        print(f"Error al insertar en la base de datos: {e}")
+        return None
+    finally:
+        session.close()       
+            
+
+@user.get("/get_bookings/{id}", tags=["booking"], description="Get reservations")
+def get_bookings(user_id : str):
+    try:
+        print(user_id)
+        
+        consulta = text('SELECT id FROM booking WHERE booking.user_id = :user_id')
+        results = session.execute(consulta, {"user_id" : user_id}).fetchall()
+        
+        if results:
+            bookings = {}
+            i = 0
+            for row in results:
+                bookings[i] = get_booking(row[0])
+                i += 1    
+            return list(bookings.values())
+        else:
+            return None 
     except Exception as e:
         print(f"Error al insertar en la base de datos: {e}")
         return None

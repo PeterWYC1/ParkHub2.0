@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { createContext, useContext, useState } from "react";
 import { validarEmail, validarPassword } from "../functions/Formularios";
+import { TbAxisX } from "react-icons/tb";
  
 const API_BASE_URL = 'http://localhost:8000';
 const userContext = createContext();
@@ -102,9 +103,11 @@ export const UserContextProvider = (props) => {
         try {
             const return_id = localStorage.getItem("userData");
 
+            console.log({date, hour, return_id})
+
             const response = await axios.post(`${API_BASE_URL}/add_booking`, {
                 "user_id" : return_id,
-                company_id: "b8e1611e-b7b7-4832-918f-cfb794d684b9",
+                "company_id": "2e66a0ee-2215-41db-adcf-af92ed46fa94",
                 date, 
                 hour
             });
