@@ -26,7 +26,7 @@ const slideDown = keyframes`
 `;
 const ContenedorMensaje = styled.article`
     z-index: 1000;
-    width: 100vw;
+    width: 800px;
     position: fixed;
     top: 10px;
     display: flex;
@@ -36,7 +36,7 @@ const ContenedorMensaje = styled.article`
  
     p {
         background-color: ${(props) => tiposMensajes[props.$tipo] || '#000'};
-        color: #fff;
+        color: #000;
         padding: 18px 30px;
         border-radius: 0.4rem;
         box-shadow: 0px 0px 15px rgba(0,0,0,.1);
@@ -80,7 +80,7 @@ export const MessageContextProvider = (props) => {
                     tipo: null, 
                     visible: false
                 })
-            }, 3000)
+            }, 5000)
         }
 
         return(() => clearTimeout(tiempo))
