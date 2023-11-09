@@ -5,12 +5,14 @@ import Carrusel from "../elements/Carrusel";
 import Info from "../elements/Info";
 import colores from "../styles/colores";
 import Layout from "./Layout";
+import nombreUsuario from "../elements/ContentSesion";
 
 const ContenedorClick = styled.article`
   background-color: ${colores.oscuro};
   padding: 10px;
   color: #fff;
   transition: all 0.5s ease;
+  
 
   div {
     background-color: ${colores.moradoOscuro};
@@ -27,10 +29,20 @@ const ContenedorClick = styled.article`
     }
   }
 
+  p {
+    font-size: 15px;
+    color: #fff;
+ 
+}
+
   @media (max-width: 800px) {
-    p { text-align: center; }
+    p { text-align: center;
+      font-size: 14px;
+     }
   }
 `
+
+
 const Boton = styled.div`
     width: 200px;
     height: 35px;
@@ -80,7 +92,6 @@ const Principal = () => {
               <p>¿Deseas administrar de la mejor manera tu parqueadero?</p>
               <Boton>
                 <p onClick={() => navigate("/organizacion")}>Click aquí</p>
-
               </Boton>
             </ContenedorClick>
           <Aliados />

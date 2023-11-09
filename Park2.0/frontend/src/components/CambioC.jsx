@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMessage } from "../context/messageContext";
-import { useUser } from "../context/userContext";
-
-import Imagen from "../images/carrusel/parqueadero2.jpg";
-import colores from "../styles/colores";
-import { FaUserCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import styled from "styled-components";
+import { useMessage } from "../context/messageContext";
+import { useUser } from "../context/userContext";
+import Imagen from "../images/carrusel/parqueadero2.jpg";
 import LogoG from "../images/logoB.png";
 import LogoP from "../images/logo_blanco.png";
+import colores from "../styles/colores";
 import { Formulario, Input } from "../styles/varios";
 
 const Fondo = styled.div`
@@ -23,18 +20,8 @@ const Fondo = styled.div`
     padding: 80px;
 
     @media (max-width: 800px) { padding: 30px; }
-`;
-const Contenedor1 = styled.div`
-    margin: auto;
-    max-width: 1000px;
-    width: 100%;
-`;
-const ContenedorHeader = styled.div`
-    height: 60px;
-    display: flex;
+`
 
-    @media (max-width: 800px) { height: 40px; }
-`;
 const Header = styled.button`
     background-color: ${props => (props.$inLogin ? colores.moradoClaro : colores.oscuro)};
     cursor: ${props => (props.$inLogin ? "auto" : "pointer")};
@@ -133,7 +120,7 @@ const CambioC = () => {
                 old_password: old_password,
                 confirmPassword: confirmPassword
             })
-            if (typeof respuesta === 'string') newMessage(respuesta, "error");
+            if (!respuesta) newMessage("Cambio de contraseña fallido", "error");
             else newMessage("Cambio de contraseña exitoso", "exito")
     } catch (error) {
         console.log(error)
@@ -141,9 +128,6 @@ const CambioC = () => {
     }
 }
  
-const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-};
   
     return (
      <Fondo> 
@@ -196,6 +180,7 @@ const handleResize = () => {
                     </ContInput>
                     
                 <Boton>Confirmar</Boton>
+                
             </Formulario>
         </Contenedor>
         </Fondo>

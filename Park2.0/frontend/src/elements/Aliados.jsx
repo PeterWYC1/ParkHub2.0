@@ -11,7 +11,7 @@ const Contenedor = styled.article`
     width: 95%;
 
     h2 { 
-        font-size: 1.1rem;
+        font-size: 1.35rem;
         text-align: center;
         margin-bottom: 5px;
     }

@@ -3,13 +3,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useUser, UserContextProvider } from "../context/userContext";
 import { format } from 'date-fns';
-import { useMessage } from "../context/messageContext";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SelectAliados from "../elements/SelectAliados";
 import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import Layout from "./Layout";
-
+import { useMessage } from "../context/messageContReserva";
 
 const Contenedor1 = styled.article`
 display: flex;
@@ -17,7 +15,20 @@ flex-direction: column;
 align-items: center;
 text-align: center;
 margin: 10px auto;
+
+h2 { 
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+@media (max-width: 800px) {
+    h2 { 
+      font-size: 20px;
+     }
+  }
 `
+
+
 const ContenedorBotones = styled.div`
     display: flex;
     flex-direction: column;
@@ -78,13 +89,12 @@ const Reserva = () => {
 
     const { addBooking } = useUser()
 
-    const navigate = useNavigate();
-
     const handleSeleccionHora = (hora) => {
         setHoraSeleccionada(hora);
     };
 
-    const handleReserva = async () => {
+    const handleReserva = async (e) => {
+        e.preventDefault();
 
         try {
             const formattedDate = format(date, 'yyyy-MM-dd');
@@ -94,15 +104,18 @@ const Reserva = () => {
             })
             
             if (response != null) {
-                setMensajeReserva('Reserva completada correctamente. Su número de parqueadero es ' + response["number"]); 
+                // esto crea el mensaje en messageContReserva
+                newMessage( response["user_name"] + ' su reserva se ha completado correctamente. Número de parqueadero: ' 
+                + response["parking_lot_number"] + ', hora: ' + response["hour"] + ', fecha: ' + response["date"]
+                  ,"reserva");
             } else {
-                setMensajeReserva('Hubo un error al procesar la reserva.');
+                newMessage('Hubo un error al procesar la reserva.',"reserva");
             }
 
 
         } catch (error) {
             console.error(error)
-            setMensajeReserva('Hubo un error al procesar la reserva.');
+            newMessage('Hubo un error al procesar la reserva.', "reserva");
         }
     }
     
@@ -112,31 +125,33 @@ const Reserva = () => {
         '08:00 AM',
         '09:00 AM',
         '10:00 AM',
+        '11:00 AM',
         '12:00 PM',
+        '01:00 PM',
         '02:00 PM',
-        '04:00 PM',
-        '06:00 PM',
         '03:00 PM',
         '04:00 PM',
         '05:00 PM',
+        '06:00 PM',
+        '07:00 PM',
+        '08:00 PM',
+        
     ];
-    
-    const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
     
     return(
         <Layout paginaActual="Reserva">
             <ContenedorSombra>
-                <Contenedor1><h2>Elija El Destino </h2></Contenedor1>
+                <Contenedor1><h2>Realice su reserva</h2></Contenedor1>
                 <SelectAliados/>
                 <Mitad> 
                     <div>
-                    <h2>Seleccionar Fecha</h2>
+                    <h2>Seleccionar fecha</h2>
                     <Contenedor1>
                     <DatePicker selected={date} onChange={(date) => setStartDate(date)} />
                     </Contenedor1>
                     </div>
                     <div>
-                    <h2>Seleccionar La Hora </h2>
+                    <h2>Seleccionar hora </h2>
 
                     <Contenedor1>
                     <div>
@@ -148,19 +163,15 @@ const Reserva = () => {
                                     </option>
                                     ))}
                         </select>
-                        {hour && <p>Has seleccionado: {hour}</p>}
+                        {hour && <p></p>}
                     </div>
                
                     </Contenedor1>
                     </div>
-
-
                 </Mitad>  
                 <ContenedorBotones>
                 <button className="reserva" onClick={handleReserva} >Listo</button>
                 </ContenedorBotones>
-                
-                {mensajeReserva && <div className="mensajeReserva">{mensajeReserva}</div>} 
             </ContenedorSombra>
         </Layout>
     )

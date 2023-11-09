@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useUser } from "../context/userContext";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaHistory, FaHome, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -70,6 +70,7 @@ const LinkS = styled(Link)`
 
 const Menu = ({ paginaActual }) => {
     const [visible, cambiarVisible] = useState(false);
+    const { nombreUsuario } = useUser();
 
     return (
         <BotonMenu>
@@ -97,7 +98,7 @@ const Menu = ({ paginaActual }) => {
                         <div />
                         <LinkS to="/perfil"
                                 className={paginaActual==="Perfil" ? "active" : ""}>
-                            <FaUserCircle />Perfil
+                            <FaUserCircle />{nombreUsuario}
                         </LinkS>
                     </Navegar>
                 </Contenedor>
