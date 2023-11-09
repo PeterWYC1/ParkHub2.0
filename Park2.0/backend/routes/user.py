@@ -17,12 +17,12 @@ pwd_context = CryptContext(schemes=['bcrypt'], deprecated="auto")
 
 @user.get("/users/{id}", tags=["users"], description="Get a single user by id",
 )
-def get_user(id: str):
+def get_user_name(id: str):
     try:
-        consulta = text("SELECT * FROM user WHERE user.id = :id")
-        user_return = session.execute(consulta, {"id" : id}).first()
+        consulta = text("SELECT name FROM user WHERE user.id = :id")
+        user_return = session.execute(consulta, {"id" : id}).fetchone()[0]
         if user_return is not None:
-            return user_return._asdict()
+            return user_return
         else:
             return None
     except Exception as e:
@@ -85,7 +85,7 @@ def change_password(c : Change):
         return False
     except Exception as e:
         print(f"Error al insertar en la base de datos: {e}")
-        return None
+        return False
     finally:
         session.close()
 
@@ -188,7 +188,7 @@ def add_booking(b : Booking):
         session.execute(consulta, valores)
         session.commit()
         
-        return get_parking_number(parking_lot["id"])
+        return get_booking(new_id)
     except Exception as e:
         print(f"Error al insertar en la base de datos: {e}")
         return None
@@ -207,11 +207,12 @@ def get_booking(id : str):
             consulta_parking = text("SELECT number FROM parking_lot WHERE id = :id")
             parking_number = session.execute(consulta_parking, {"id" : result[2]}).fetchone()[0]
             
-            print(parking_number)
+            consulta_user = text("SELECT name FROM user WHERE id = :id")
+            user_name = session.execute(consulta_user, {"id" : result[1]}).fetchone()[0]
             
             booking = {
                 "id" : result[0],
-                "user_id" : result[1],
+                "user_name" : user_name,
                 "parking_lot_number" : parking_number,
                 "date" : result[3],
                 "hour" : result[4],

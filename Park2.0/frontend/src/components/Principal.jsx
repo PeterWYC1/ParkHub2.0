@@ -5,12 +5,14 @@ import Carrusel from "../elements/Carrusel";
 import Info from "../elements/Info";
 import colores from "../styles/colores";
 import Layout from "./Layout";
+import nombreUsuario from "../elements/ContentSesion";
 
 const ContenedorClick = styled.article`
   background-color: ${colores.oscuro};
   padding: 10px;
   color: #fff;
   transition: all 0.5s ease;
+  
 
   div {
     background-color: ${colores.moradoOscuro};
@@ -90,7 +92,6 @@ const Principal = () => {
               <p>¿Deseas administrar de la mejor manera tu parqueadero?</p>
               <Boton>
                 <p onClick={() => navigate("/organizacion")}>Click aquí</p>
-
               </Boton>
             </ContenedorClick>
           <Aliados />

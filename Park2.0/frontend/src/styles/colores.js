@@ -6,7 +6,7 @@ const colores = {
     blanco: '#FFFFFF',
     error: '#E34747',
     exito: '#43A854',
-    reserva: '#BABBB1',
+    reserva: '#43A854',
 }
 
 export default colores

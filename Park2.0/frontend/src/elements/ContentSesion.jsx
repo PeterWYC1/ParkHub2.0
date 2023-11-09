@@ -77,19 +77,15 @@ const ContenedorBotones = styled.div`
 
 
 const ContentSesion = ({ inLogin }) => {
-    // Tamaño de la pantalla
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    // Estados con la informacion de los inputs
     const [name, cambiarUsername] = useState("");
     const [email, cambiarEmail] = useState("");
     const [password, cambiarPassword] = useState("");
     const [confirmPassword, confirmarPassword] = useState("");
 
-    // Contexto del usuario
-    const { signUp, login } = useUser(); // Cambiado de `createUser` a `signUp`
+    const { signUp, login, getUser, setNombreUsuario } = useUser(); 
 
-    // Contexto de mensaje
     const { newMessage } = useMessage();
 
     const navigate = useNavigate();
@@ -99,10 +95,8 @@ const ContentSesion = ({ inLogin }) => {
     };
 
     useEffect(() => {
-        // Agregar el evento de cambio de tamaño de ventana
         window.addEventListener('resize', handleResize);
 
-        // Limpieza del efecto al desmontar el componente
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -114,15 +108,11 @@ const ContentSesion = ({ inLogin }) => {
 
         try {
             if (inLogin) {
-                // ** Pestaña de login ** //
                 respuesta = await login({ 
                     email, 
                     password
                 });
             } else {
-                // ** Pestaña de sign Up ** //
-
-                // Crear usuario
                 respuesta = await signUp({
                     name,
                     email,
@@ -130,9 +120,12 @@ const ContentSesion = ({ inLogin }) => {
                     confirmPassword
                 });
             }
-            console.log(respuesta)
+            
             if (typeof respuesta === 'string') newMessage(respuesta, "error");
-            else navigate("/")
+            else {
+                setNombreUsuario(await getUser(respuesta["id"]));
+                navigate("/")
+            }
         } catch (error) {
             console.log(error)
             newMessage("Intentelo más tarde", "error");

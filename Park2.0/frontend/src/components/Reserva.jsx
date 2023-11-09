@@ -93,9 +93,8 @@ const Reserva = () => {
         setHoraSeleccionada(hora);
     };
 
-    const handleReserva = async () => {
+    const handleReserva = async (e) => {
         e.preventDefault();
-        
 
         try {
             const formattedDate = format(date, 'yyyy-MM-dd');
@@ -106,9 +105,8 @@ const Reserva = () => {
             
             if (response != null) {
                 // esto crea el mensaje en messageContReserva
-                newMessage( 'Reserva completada correctamente. Su número de parqueadero es ' 
-                + response["number"]+' hora:' + response.hour + ' fecha' + response.date
-                  // aca se anaden los campos faltantes
+                newMessage( response["user_name"] + ' su reserva se ha completado correctamente. Número de parqueadero: ' 
+                + response["parking_lot_number"] + ', hora: ' + response["hour"] + ', fecha: ' + response["date"]
                   ,"reserva");
             } else {
                 newMessage('Hubo un error al procesar la reserva.',"reserva");
@@ -140,12 +138,10 @@ const Reserva = () => {
         
     ];
     
-    const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
-    
     return(
         <Layout paginaActual="Reserva">
             <ContenedorSombra>
-                <Contenedor1><h2>Elija el destino </h2></Contenedor1>
+                <Contenedor1><h2>Realice su reserva</h2></Contenedor1>
                 <SelectAliados/>
                 <Mitad> 
                     <div>
@@ -155,7 +151,7 @@ const Reserva = () => {
                     </Contenedor1>
                     </div>
                     <div>
-                    <h2>Seleccionar la hora </h2>
+                    <h2>Seleccionar hora </h2>
 
                     <Contenedor1>
                     <div>
@@ -167,19 +163,15 @@ const Reserva = () => {
                                     </option>
                                     ))}
                         </select>
-                        {hour && <p>Has seleccionado: {hour}</p>}
+                        {hour && <p></p>}
                     </div>
                
                     </Contenedor1>
                     </div>
-
-
                 </Mitad>  
                 <ContenedorBotones>
                 <button className="reserva" onClick={handleReserva} >Listo</button>
                 </ContenedorBotones>
-                
-                {mensajeReserva && <div className="mensajeReserva">{mensajeReserva}</div>} 
             </ContenedorSombra>
         </Layout>
     )

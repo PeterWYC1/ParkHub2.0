@@ -120,7 +120,7 @@ const CambioC = () => {
                 old_password: old_password,
                 confirmPassword: confirmPassword
             })
-            if (typeof respuesta === 'string') newMessage(respuesta, "error");
+            if (!respuesta) newMessage("Cambio de contraseña fallido", "error");
             else newMessage("Cambio de contraseña exitoso", "exito")
     } catch (error) {
         console.log(error)
