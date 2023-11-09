@@ -9,6 +9,7 @@ import Perfil from './components/Perfil';
 import Principal from './components/Principal';
 import Reserva from "./components/Reserva";
 import Sesion from './components/Sesion';
+import CambioC from './components/CambioC';
 
 const Ruteo = () => {
     // const { user, getStorage } = useUser();
@@ -29,6 +30,8 @@ const Ruteo = () => {
                 <Route path='/reserva' element={<Reserva />} />
                 <Route path='/historial' element={<Historial />} />
                 <Route path='/Organizacion' element={<Organizacion />} />
+                <Route path='/cambio' element={<CambioC />} />
+
             </Routes>
         </BrowserRouter>
     )
