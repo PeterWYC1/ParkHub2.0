@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import styled from "styled-components";
-import { UserContextProvider, useUser } from "../context/userContext";
-import SelectAliados from "../elements/SelectAliados";
-import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
-import Layout from "./Layout";
+import { useUser, UserContextProvider } from "../context/userContext";
+import { format } from 'date-fns';
+import { useMessage } from "../context/messageContext";
+import { useNavigate } from "react-router-dom";
 
 
 const Contenedor1 = styled.article`
@@ -16,7 +15,6 @@ text-align: center;
 margin: 10px auto;
 
 `
-
 const ContenedorBotones = styled.div`
     display: flex;
     flex-direction: column;
@@ -44,8 +42,6 @@ const ContenedorBotones = styled.div`
     }
 
     }
-
-
 `
 const Boton = styled.button`
     align-items: center;
@@ -70,12 +66,16 @@ const Boton = styled.button`
     }
 `
 
-
 const Reserva = () => {
     const [hour, setHoraSeleccionada] = useState(null);
     const [date, setStartDate] = useState(new Date());
+    const [mensajeReserva, setMensajeReserva] = useState("");
 
 
+
+    const { newMessage } = useMessage();
+
+    const navigate = useNavigate();
 
     const handleSeleccionHora = (hora) => {
         setHoraSeleccionada(hora);
@@ -89,9 +89,17 @@ const Reserva = () => {
                 phone: telefono,
                 address: direccion,
             })
-            console.log(response)
+            
+            if (response != null) {
+                setMensajeReserva('Reserva completada correctamente. Su número de parqueadero es ' + response["number"]); 
+            } else {
+                setMensajeReserva('Hubo un error al procesar la reserva.');
+            }
+
+
         } catch (error) {
             console.error(error)
+            setMensajeReserva('Hubo un error al procesar la reserva.');
         }
     }
     
@@ -142,13 +150,14 @@ const Reserva = () => {
                
                     </Contenedor1>
                     </div>
-            
+
 
                 </Mitad>  
                 <ContenedorBotones>
                 <button className="reserva" onClick={handleReserva} >Listo</button>
                 </ContenedorBotones>
-            
+                
+                {mensajeReserva && <div className="mensajeReserva">{mensajeReserva}</div>} 
             </ContenedorSombra>
         </Layout>
     )
