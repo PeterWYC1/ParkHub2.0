@@ -7,7 +7,7 @@ import styled from "styled-components";
 import SelectAliados from "../elements/SelectAliados";
 import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import Layout from "./Layout";
-
+import { useMessage } from "../context/messageContReserva";
 
 const Contenedor1 = styled.article`
 display: flex;
@@ -85,6 +85,7 @@ const Reserva = () => {
     const [date, setStartDate] = useState(new Date());
     const [mensajeReserva, setMensajeReserva] = useState("");
 
+    const { newMessage } = useMessage();
 
     const { addBooking } = useUser()
 
@@ -93,6 +94,8 @@ const Reserva = () => {
     };
 
     const handleReserva = async () => {
+        e.preventDefault();
+        
 
         try {
             const formattedDate = format(date, 'yyyy-MM-dd');
@@ -102,15 +105,19 @@ const Reserva = () => {
             })
             
             if (response != null) {
-                setMensajeReserva('Reserva completada correctamente. Su número de parqueadero es ' + response["number"]); 
+                // esto crea el mensaje en messageContReserva
+                newMessage( 'Reserva completada correctamente. Su número de parqueadero es ' 
+                + response["number"]+' hora:' + response.hour + ' fecha' + response.date
+                  // aca se anaden los campos faltantes
+                  ,"reserva");
             } else {
-                setMensajeReserva('Hubo un error al procesar la reserva.');
+                newMessage('Hubo un error al procesar la reserva.',"reserva");
             }
 
 
         } catch (error) {
             console.error(error)
-            setMensajeReserva('Hubo un error al procesar la reserva.');
+            newMessage('Hubo un error al procesar la reserva.', "reserva");
         }
     }
     
