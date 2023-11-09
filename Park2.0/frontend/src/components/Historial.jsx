@@ -1,13 +1,33 @@
 import { useEffect, useState } from "react";
-import Layout from "./Layout";
-import styled from "styled-components";
-import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
-import SelectAliados from "../elements/SelectAliados";
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useUser, UserContextProvider } from "../context/userContext"
+import styled from "styled-components";
+import { UserContextProvider, useUser } from "../context/userContext";
+import HistorialReservas from "../elements/HistorialReservas";
+import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
+import Layout from "./Layout";
+import colores from "../styles/colores";
 
 
+
+const Contenedor1 = styled.article`
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+
+
+h2 { 
+    font-size: 24px;
+    text-align: center;
+    margin: 5px;
+}
+@media (max-width: 800px) {
+    h2 { 
+      font-size: 20px;
+     }
+  }
+`
+ 
 
 const Historial = () => {
 
@@ -15,8 +35,12 @@ const Historial = () => {
     return(
         <Layout  paginaActual="Historial">
             <ContenedorSombra>
-
+                <Contenedor1><h2>Historial de reservas</h2> </Contenedor1>
+                <HistorialReservas/>
             </ContenedorSombra>
+            
+     
+          
         </Layout>
 
     )
