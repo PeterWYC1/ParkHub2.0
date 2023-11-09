@@ -43,6 +43,7 @@ const Organizacion = () => {
 
                     Park Hub no es solo una plataforma, es una comunidad de personas comprometidas con la simplificación de la vida diaria. Juntos, estamos cambiando la forma en que las personas se mueven y acceden a los espacios de estacionamiento. Únete a nosotros y sé parte de esta emocionante revolución en la forma en que experimentamos el estacionamiento.
                     </p>
+                    
             </div>
         </Layout>
 
