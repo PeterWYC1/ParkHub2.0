@@ -24,11 +24,12 @@ const slideDown = keyframes`
         opacity: 0;
     }
 `;
+
 const ContenedorMensaje = styled.article`
     z-index: 1000;
-    max-width: 800px;
+    width: 100vw;
+    height: 100vh;
     position: fixed;
-    top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,6 +43,8 @@ const ContenedorMensaje = styled.article`
         box-shadow: 0px 0px 15px rgba(0,0,0,.1);
         text-align: center;
         font-size: 14px;
+        max-width: 80%; /* Establece el ancho máximo del párrafo */
+        display: inline-block; /* Permite que el texto se divida en múltiples líneas */
 
         @media (max-width: 500px) {
             padding: 14px 20px;
