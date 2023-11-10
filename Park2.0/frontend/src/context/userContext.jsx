@@ -90,7 +90,7 @@ export const UserContextProvider = (props) => {
                                 { email, old_password, new_password }
             );
             
-            if (response.data==null)  return "Email o contraseña incorrecta";
+            if (response.data==null)  return "Email o contraseña incorrectos";
 
             console.log(response.data)
             const usuario = response.data;

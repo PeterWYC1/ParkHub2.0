@@ -37,13 +37,19 @@ const Header = styled.button`
     color: #fff;
 `;
 
-
+const Contenedor1= styled.div`
+    margin: auto;
+    max-width: 1000px;
+    width: 100%;
+    border-radius:  20px;
+`;
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-radius: 0 0 20px 20px;
+   
+    border-radius: 20px 20px;
 
     > form { align-items: center; }
 `;
@@ -130,6 +136,7 @@ const CambioC = () => {
   
     return (
      <Fondo> 
+        <Contenedor1>
         <Contenedor>
             <Logo src={windowWidth>550 ? LogoG : LogoP} alt="Logo ParkHub" />
             <Formulario onSubmit={handleSubmit}>      
@@ -182,6 +189,7 @@ const CambioC = () => {
                 
             </Formulario>
         </Contenedor>
+        </Contenedor1>
         </Fondo>
     )
 }

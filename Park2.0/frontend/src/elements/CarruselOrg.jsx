@@ -88,6 +88,13 @@ const Mitad1 = styled.div`
         
     }
 `
+const ContenedorScrollV = styled.article`
+display: flex;
+flex-direction: column; 
+height: 100%; 
+overflow-y: auto; 
+`
+
 const CarruselOrg= () => {
   const imagenes = [parqueadero1, parqueadero2];
   
@@ -122,6 +129,7 @@ const CarruselOrg= () => {
       </Carousel>
 
       <ContenedorItems>
+      
         <Mitad1>
             <div>
             <ContenedorInfo>
@@ -136,6 +144,7 @@ const CarruselOrg= () => {
             </ContenedorInfo>
             </div> 
         </Mitad1>
+        
       </ContenedorItems>
      
     </CarruselContenedor>
