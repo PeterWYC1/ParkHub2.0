@@ -168,9 +168,12 @@ def get_parking_number(parking_id : str):
 @user.post("/add_booking", tags=["booking"], description="Make a reservation")
 def add_booking(b : Booking):
     try:
-        # if b.date is not None:
-        #     b.date = datetime.strptime(b.date, '%Y-%m-%d')
-        #     date_str = b.date.strftime('%Y-%m-%d')
+        consulta = text("SELECT * FROM booking WHERE booking.user_id = :user_id AND booking.date = :date")
+        valores = {"user_id" : b.user_id, "date" : b.date}
+        existing_booking = session.execute(consulta, valores)
+        
+        if existing_booking:
+            return True
         
         parking_lot = get_parking_lot(b.company_id)
         
