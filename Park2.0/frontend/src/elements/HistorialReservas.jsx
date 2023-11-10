@@ -77,7 +77,6 @@ const HistorialReservas = () => {
                 newMessage("Inténtelo más tarde", "error");
             }
         }
-
         obtenerReservas();
     }, [get_historial]);
 
