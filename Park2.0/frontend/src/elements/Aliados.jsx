@@ -4,6 +4,7 @@ import EIA from "../images/aliados/eia.jpg";
 import SANTAFE from "../images/aliados/santafe.png";
 import UPB from "../images/aliados/upb.png";
 import VIVA from "../images/aliados/viva.jpg";
+import def from "../images/aliados/pp2.png";
 import { ContenedorScroll } from "../styles/varios";
 
 const Contenedor = styled.article`
@@ -30,7 +31,7 @@ const ContenedorAliado = styled.img`
 `
 
 const Aliados = () => {
-    const aliados = [EIA, EAFIT, UPB, SANTAFE, VIVA];
+    const aliados = [def,def,def,def];
 
     return (
         <Contenedor>

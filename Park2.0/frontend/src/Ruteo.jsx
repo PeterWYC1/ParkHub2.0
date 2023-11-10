@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Historial from './components/Historial';
 import Organizacion from './components/Organizacion';
-import Perfil from './components/Perfil';
 import Principal from './components/Principal';
 import Reserva from "./components/Reserva";
 import Sesion from './components/Sesion';
@@ -26,7 +25,6 @@ const Ruteo = () => {
             <Routes>
                 <Route path='/' element={<Principal />} />
                 <Route path='/sesion' element={<Sesion />} />
-                <Route path='/perfil' element={<Perfil />} />
                 <Route path='/reserva' element={<Reserva />} />
                 <Route path='/historial' element={<Historial />} />
                 <Route path='/Organizacion' element={<Organizacion />} />

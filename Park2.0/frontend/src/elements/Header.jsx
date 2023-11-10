@@ -108,10 +108,8 @@ const Header = ({ paginaActual="" }) => {
                 </Botones>
             </Navegar>
             <Usuario>
-                <p
-                onClick={() => navigate("/sesion")}>Iniciar Sesión</p>
-                <p 
-                onClick={() => navigate("/perfil")}>{nombreUsuario}</p>
+                <p onClick={() => navigate("/sesion")}>Iniciar Sesión</p>
+                <p>{nombreUsuario}</p>
                 <FaUserCircle />
             </Usuario>
         </Contenedor>

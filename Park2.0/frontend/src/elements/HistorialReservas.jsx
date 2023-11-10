@@ -83,26 +83,24 @@ const HistorialReservas = () => {
     return( 
             
         <ContenedorScrollV>
-            <ContenedorReserva>
-                <Mitad>
-                <Links>
-                        {reservas.map((reserva, index) => (
-                            <div key={index}>
-                                <h2>Fecha de reserva: {reserva.date}</h2>
-                            </div>
-                        ))}
-                </Links>
-                <Links>
-                        {reservas.map((reserva, index) => (
-                            <div key={index}>
-                                <p>Numero de parqueadero: {reserva.parking_lot_number}</p>
-                                <p>Hora: {reserva.hour}</p>
-                                <p>Fecha de creación: {reserva.date_created}</p>
-                            </div>
-                        ))}
-                </Links>
-                </Mitad>
-            </ContenedorReserva>
+            {reservas.map((reserva, index) => (
+                <ContenedorReserva>
+                    <Mitad>
+                    <Links>
+                        <div key={index}>
+                            <h2>Fecha de reserva: {reserva.date}</h2>
+                        </div>
+                    </Links>
+                    <Links>
+                        <div key={index}>
+                            <p>Numero de parqueadero: {reserva.parking_lot_number}</p>
+                            <p>Hora: {reserva.hour}</p>
+                            <p>Fecha de creación: {reserva.date_created}</p>
+                        </div>
+                    </Links>
+                    </Mitad>
+                </ContenedorReserva>
+            ))}
         </ContenedorScrollV>
     
 

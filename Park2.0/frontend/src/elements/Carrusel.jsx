@@ -102,7 +102,7 @@ flex-direction: column;
 align-items: center;
 text-align: center;
 margin: 10px auto;
-color: ${colores.moradoClaro};
+
 
 > p {
     margin-top: 60px;
