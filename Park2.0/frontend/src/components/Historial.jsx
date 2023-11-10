@@ -5,7 +5,7 @@ import { UserContextProvider, useUser } from "../context/userContext";
 import HistorialReservas from "../elements/HistorialReservas";
 import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import Layout from "./Layout";
-import colores from "../styles/colores";
+
 
 
 
