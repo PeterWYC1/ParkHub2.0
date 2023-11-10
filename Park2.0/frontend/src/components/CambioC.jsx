@@ -178,6 +178,7 @@ const CambioC = () => {
                         />
                         <RiLockPasswordFill />
                     </ContInput>
+                    
                 <Boton>Confirmar</Boton>
                 
             </Formulario>
