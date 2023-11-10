@@ -102,20 +102,15 @@ const Reserva = () => {
                 date: formattedDate,
                 hour: hour
             })
-            
-            if (response != null) {
-                // esto crea el mensaje en messageContReserva
+
+            if (typeof response === 'string') newMessage(response, "error");
+            else {
                 newMessage( response["user_name"] + ' su reserva se ha completado correctamente. Número de parqueadero: ' 
                 + response["parking_lot_number"] + ', hora: ' + response["hour"] + ', fecha: ' + response["date"]
                   ,"reserva");
-            } else {
-                newMessage('Hubo un error al procesar la reserva.',"reserva");
             }
-
-
         } catch (error) {
-            console.error(error)
-            newMessage('Hubo un error al procesar la reserva.', "reserva");
+            newMessage('Hubo un error al procesar la reserva.', "error");
         }
     }
     

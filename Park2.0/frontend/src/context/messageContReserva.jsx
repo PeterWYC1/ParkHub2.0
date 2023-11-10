@@ -57,6 +57,7 @@ const messageContext = createContext();
 
 const tiposMensajes = {
     reserva: colores.reserva,
+    error: colores.error
 };
 
 

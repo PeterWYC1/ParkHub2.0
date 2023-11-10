@@ -113,7 +113,8 @@ export const UserContextProvider = (props) => {
                 hour
             });
 
-            if (response.data == null)  return "No hay parqueaderos disponibles";
+            if (response.data == true) return "Ya tienes una reserva hecha para hoy"
+            if (response.data == null) return "No hay parqueaderos disponibles"
 
             return response.data;
         } catch (error) {
