@@ -164,6 +164,7 @@ const Footer = () => {
                         <a href="mailto:parkhub100@gmail.com"><RedSocial> <AiOutlineMail /> </RedSocial></a>
                         <a href="https://wa.me/3016140593"><RedSocial> <BsWhatsapp /> </RedSocial></a>
                         <a href="https://www.instagram.com/parkhub__"><RedSocial> <AiOutlineInstagram /> </RedSocial></a>
+                        
                     </div>
                 </Contacto>
 
