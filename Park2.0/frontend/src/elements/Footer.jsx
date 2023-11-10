@@ -161,9 +161,11 @@ const Footer = () => {
                 <Contacto>
                     <p>Contactenos</p>
                     <div>
-                        <RedSocial> <AiOutlineMail /> </RedSocial>
-                        <RedSocial> <BsWhatsapp /> </RedSocial>
-                        <RedSocial> <AiOutlineInstagram /> </RedSocial>
+                        <RedSocial  onClick={() => window.open("mailto:parkub100@gmail.com")}> <AiOutlineMail /> </RedSocial>
+
+                        <RedSocial onClick={() => window.open("https://wa.me/+573016140593")}><BsWhatsapp /> </RedSocial>
+
+                        <RedSocial onClick={() => window.open("https://www.instagram.com/parkhub__/")}> <AiOutlineInstagram /> </RedSocial>
                     </div>
                 </Contacto>
 
