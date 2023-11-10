@@ -80,7 +80,9 @@ export const Mitad = styled.div`
 
     @media (max-width: 800px) {
         flex-direction: column;
-        > div { width: 100% }
+        > div { width: 100% 
+        }
+        
     }
 `
 export const Tercio = styled.div`

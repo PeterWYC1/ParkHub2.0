@@ -122,14 +122,14 @@ export const UserContextProvider = (props) => {
         }
     }
 
-    const get_historial = async (id) => {
+    const get_historial = async () => {
         try {
-            // Se puede obtener por id o por username
-            const response = await axios.get(`${API_BASE_URL}/users/${buscar}`);
-            return response?.data;
+            const user_id = localStorage.getItem("userData");
+            const response = await axios.get(`${API_BASE_URL}/get_bookings/${user_id}`);
+            return response.data;
         } catch (error) {
             console.error(error)
-            return false
+            return null
         }
     }
 
@@ -145,7 +145,9 @@ export const UserContextProvider = (props) => {
                 change_password,
                 nombreUsuario,
                 setNombreUsuario,
+                get_historial,
             }}
+
         >
             {props.children}
         </userContext.Provider>

@@ -184,7 +184,7 @@ def add_booking(b : Booking):
         new_id = str(uuid.uuid4())
         
         consulta = text("INSERT INTO booking VALUES (:id, :user_id, :parking_lot_id, :date, :hour, :date_created)")
-        valores = {"id" : new_id, "user_id" : b.user_id, "parking_lot_id" : parking_lot["id"], "date" : b.date, "hour" : b.hour, "date_created" : datetime.now()}
+        valores = {"id" : new_id, "user_id" : b.user_id, "parking_lot_id" : parking_lot["id"], "date" : b.date, "hour" : b.hour, "date_created" : datetime.now().date()}
         session.execute(consulta, valores)
         session.commit()
         
@@ -229,7 +229,7 @@ def get_booking(id : str):
         session.close()       
             
 
-@user.get("/get_bookings/{id}", tags=["booking"], description="Get reservations")
+@user.get("/get_bookings/{user_id}", tags=["booking"], description="Get reservations")
 def get_bookings(user_id : str):
     try:
         print(user_id)
