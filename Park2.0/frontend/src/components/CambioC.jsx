@@ -127,8 +127,6 @@ const CambioC = () => {
         newMessage("Intentelo más tarde", "error");
     }
 }
-
- 
   
     return (
      <Fondo> 
