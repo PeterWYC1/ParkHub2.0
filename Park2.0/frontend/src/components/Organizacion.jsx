@@ -5,9 +5,42 @@ import styled from "styled-components";
 import { UserContextProvider, useUser } from "../context/userContext";
 import CarruselOrg from "../elements/CarruselOrg";
 import SelectAliados from "../elements/SelectAliados";
+import colores from "../styles/colores";
 import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import Layout from "./Layout";
 
+const ContenedorInfo = styled.article`
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    z-index: 1;
+
+    > p {
+        margin-top: 60px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    div { 
+        display: flex;
+
+        div:hover {
+            transition: background-color 0.3s;
+            background-color: ${colores.moradoClaro};
+        }
+    }
+
+    @media (max-width: 800px) {
+        > p {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        > div { flex-direction: column; }
+    }
+`
 
 const Organizacion = () => {
 
@@ -16,7 +49,7 @@ const Organizacion = () => {
     return(
         <Layout  paginaActual="Organizacion">
             <CarruselOrg>
-            </CarruselOrg>
+                <ContenedorInfo>
             <div>
             <p>
                     <h1>Sobre Park Hub</h1>
@@ -45,6 +78,8 @@ const Organizacion = () => {
                     </p>
                     
             </div>
+            </ContenedorInfo>
+            </CarruselOrg>
         </Layout>
 
     )
