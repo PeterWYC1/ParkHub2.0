@@ -113,15 +113,15 @@ const CambioC = () => {
  const handleSubmit = async (e) => {
     e.preventDefault();
     let respuesta;  
-    try {
+    try {   
             respuesta = await change_password({ 
                 email: email,
                 new_password: new_password,
                 old_password: old_password,
                 confirmPassword: confirmPassword
             })
-            if (!respuesta) newMessage("Cambio de contraseña fallido", "error");
-            else newMessage("Cambio de contraseña exitoso", "exito")
+            if (typeof respuesta === "string") newMessage(respuesta, "error");
+            else newMessage("Cambio de contraseña exitoso", "exito");   
     } catch (error) {
         console.log(error)
         newMessage("Intentelo más tarde", "error");

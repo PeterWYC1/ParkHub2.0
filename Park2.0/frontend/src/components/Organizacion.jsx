@@ -50,7 +50,6 @@ const Organizacion = () => {
     return(
         <Layout  paginaActual="Organizacion">
             <CarruselOrg/>
-            
         </Layout>
 
     )

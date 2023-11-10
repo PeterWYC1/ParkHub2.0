@@ -37,7 +37,7 @@ export const UserContextProvider = (props) => {
     const login = async ({ email, password }) => {
         try {
             if (!validarEmail(email)) return "Email no valido";
-            if (!validarPassword(password)) return "La contraseña no es valida";
+            if (!validarPassword(password)) return "La contraseña debe contener: \n Al menos 8 caracteres \n Al menos 1 letra mayúscula \n Al menos 1 letra minuscula \n Al menos 1 número \n Al menos un caracter especial";
 
             const response = await axios.post(
                                 `${API_BASE_URL}/login`,
@@ -59,7 +59,7 @@ export const UserContextProvider = (props) => {
     const signUp = async ({ name, email, password, confirmPassword }) => {
         try {
             if (!validarEmail(email)) return "Email no valido";
-            if (!validarPassword(password)) return "La contraseña no es valida";
+            if (!validarPassword(password)) return "La contraseña debe contener: Al menos 8 caracteres, Al menos 1 letra mayúscula, Al menos 1 letra minuscula, Al menos 1 número, Al menos un caracter especial";
             if (password != confirmPassword) return "Las contraseñas no coinciden";
 
             const response = await axios.post(`${API_BASE_URL}/signup`, {
@@ -82,7 +82,7 @@ export const UserContextProvider = (props) => {
 
     const change_password = async ({ email, old_password, new_password, confirmPassword }) => {
         try {
-            if (!validarPassword(new_password)) return "La contraseña nueva no es valida";
+            if (!validarPassword(new_password)) return "La contraseña debe contener: Al menos 8 caracteres, Al menos 1 letra mayúscula, Al menos 1 letra minuscula, Al menos 1 número,  Al menos un caracter especial";
             if (new_password != confirmPassword) return "Las contraseñas no coinciden";
 
             const response = await axios.put(
@@ -92,6 +92,7 @@ export const UserContextProvider = (props) => {
             
             if (response.data==null)  return "Contraseña incorrecta";
 
+            console.log(response.data)
             const usuario = response.data;
             actualizarStorage(usuario);
 
@@ -113,7 +114,7 @@ export const UserContextProvider = (props) => {
                 hour
             });
 
-            if (response.data == true) return "Ya tienes una reserva hecha para hoy"
+            if (response.data == true) return "Ya tienes una reserva hecha para esta fecha"
             if (response.data == null) return "No hay parqueaderos disponibles"
 
             return response.data;

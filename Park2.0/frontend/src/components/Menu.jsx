@@ -96,8 +96,7 @@ const Menu = ({ paginaActual }) => {
                             <img src={Estacionamiento} alt="Organización" />Organización
                         </LinkS>
                         <div />
-                        <LinkS to="/perfil"
-                                className={paginaActual==="Perfil" ? "active" : ""}>
+                        <LinkS>
                             <FaUserCircle />{nombreUsuario}
                         </LinkS>
                     </Navegar>

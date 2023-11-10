@@ -72,6 +72,8 @@ def log_in(u : User):
 @user.put("/change_password", tags=["users"], description="Login")
 def change_password(c : Change):
     try:
+        print(c.old_password)
+        print(c.new_password)
         consulta = text('SELECT id FROM user WHERE user.email = :email')
         user_id = session.execute(consulta, {"email": c.email}).scalar()
         if user_id:
@@ -81,11 +83,12 @@ def change_password(c : Change):
                 consulta = text("UPDATE user SET user.password = :new_password")
                 session.execute(consulta, {"new_password" : pwd_context.hash(c.new_password)})
                 session.commit()
-                return True        
-        return False
+                consulta = text("SELECT * FROM user WHERE user.id = :id")
+                return session.execute(consulta, {"id" : user_id}).first()._asdict()    
+        return None
     except Exception as e:
         print(f"Error al insertar en la base de datos: {e}")
-        return False
+        return None
     finally:
         session.close()
 
@@ -170,7 +173,7 @@ def add_booking(b : Booking):
     try:
         consulta = text("SELECT * FROM booking WHERE booking.user_id = :user_id AND booking.date = :date")
         valores = {"user_id" : b.user_id, "date" : b.date}
-        existing_booking = session.execute(consulta, valores)
+        existing_booking = session.execute(consulta, valores).fetchone()
         
         if existing_booking:
             return True
