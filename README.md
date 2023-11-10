@@ -15,4 +15,21 @@ Somos Park Hub, tu socio confiable en la búsqueda de estacionamiento convenient
 > Levantar entorno de desarrollo:
 
     npm run dev
-    
+
+**Backend**
+
+    cd backend
+
+> Descargar librerias:
+
+    pip install fastapi
+    pip install uvicorn
+    pip install sqlalchemy
+    pip instal pydantic
+    pip install bcrypt
+    pip install passlib
+    pip install pymysql
+
+> Levantar entorno de desarrollo:
+
+    uvicorn app:app --reload
