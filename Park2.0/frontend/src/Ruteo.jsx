@@ -30,7 +30,7 @@ const Ruteo = () => {
                 <Route path='/reserva' element={<Reserva />} />
                 <Route path='/historial' element={<Historial />} />
                 <Route path='/Organizacion' element={<Organizacion />} />
-                <Route path='/cambio' element={<CambioC />} />
+                <Route path='/cambio' element={<CambioC/>} />
 
             </Routes>
         </BrowserRouter>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useUser, UserContextProvider } from "../context/userContext";
+import { format } from 'date-fns';
 import styled from "styled-components";
-import { UserContextProvider, useUser } from "../context/userContext";
 import SelectAliados from "../elements/SelectAliados";
 import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
 import Layout from "./Layout";
-
+import { useMessage } from "../context/messageContReserva";
 
 const Contenedor1 = styled.article`
 display: flex;
@@ -55,8 +56,6 @@ const ContenedorBotones = styled.div`
     }
 
     }
-
-
 `
 const Boton = styled.button`
     align-items: center;
@@ -81,28 +80,42 @@ const Boton = styled.button`
     }
 `
 
-
 const Reserva = () => {
     const [hour, setHoraSeleccionada] = useState(null);
     const [date, setStartDate] = useState(new Date());
+    const [mensajeReserva, setMensajeReserva] = useState("");
 
+    const { newMessage } = useMessage();
 
+    const { addBooking } = useUser()
 
     const handleSeleccionHora = (hora) => {
         setHoraSeleccionada(hora);
     };
 
-    const handleReserva = async () => {
+    const handleReserva = async (e) => {
+        e.preventDefault();
 
         try {
-            const response = await reservar({
-                username: nombre,
-                phone: telefono,
-                address: direccion,
+            const formattedDate = format(date, 'yyyy-MM-dd');
+            const response = await addBooking({
+                date: formattedDate,
+                hour: hour
             })
-            console.log(response)
+            
+            if (response != null) {
+                // esto crea el mensaje en messageContReserva
+                newMessage( response["user_name"] + ' su reserva se ha completado correctamente. Número de parqueadero: ' 
+                + response["parking_lot_number"] + ', hora: ' + response["hour"] + ', fecha: ' + response["date"]
+                  ,"reserva");
+            } else {
+                newMessage('Hubo un error al procesar la reserva.',"reserva");
+            }
+
+
         } catch (error) {
             console.error(error)
+            newMessage('Hubo un error al procesar la reserva.', "reserva");
         }
     }
     
@@ -125,12 +138,10 @@ const Reserva = () => {
         
     ];
     
-    const empresas = ["Universidad EIA", "Universidad EAFIT", "Universidad UPB", "Centro Comercial Santafe", "Centro Comercial Viva"]
-    
     return(
         <Layout paginaActual="Reserva">
             <ContenedorSombra>
-                <Contenedor1><h2>Elija el destino </h2></Contenedor1>
+                <Contenedor1><h2>Realice su reserva</h2></Contenedor1>
                 <SelectAliados/>
                 <Mitad> 
                     <div>
@@ -140,7 +151,7 @@ const Reserva = () => {
                     </Contenedor1>
                     </div>
                     <div>
-                    <h2>Seleccionar la hora </h2>
+                    <h2>Seleccionar hora </h2>
 
                     <Contenedor1>
                     <div>
@@ -152,18 +163,15 @@ const Reserva = () => {
                                     </option>
                                     ))}
                         </select>
-                        {hour && <p>Has seleccionado: {hour}</p>}
+                        {hour && <p></p>}
                     </div>
                
                     </Contenedor1>
                     </div>
-            
-
                 </Mitad>  
                 <ContenedorBotones>
                 <button className="reserva" onClick={handleReserva} >Listo</button>
                 </ContenedorBotones>
-            
             </ContenedorSombra>
         </Layout>
     )

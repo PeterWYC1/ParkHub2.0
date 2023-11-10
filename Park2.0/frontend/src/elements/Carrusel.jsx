@@ -7,6 +7,7 @@ import styled from "styled-components";
 import parqueadero1 from "../images/carrusel/parqueadero1.png";
 import parqueadero2 from "../images/carrusel/parqueadero2.jpg";
 import colores from "../styles/colores";
+import { useUser } from "../context/userContext";
 
 const CarruselContenedor = styled.div`
     position: relative;
@@ -23,7 +24,6 @@ const ContenedorImagen = styled.article`
     @media (max-width: 800px) { height: 300px; }
     @media (max-width: 500px) { height: 250px; }
 `
-
 
 const ContenedorInfo = styled.article`
     position: absolute;
@@ -102,6 +102,7 @@ flex-direction: column;
 align-items: center;
 text-align: center;
 margin: 10px auto;
+color: ${colores.moradoClaro};
 
 > p {
     margin-top: 60px;
@@ -118,11 +119,12 @@ margin: 10px auto;
 const Carrusel = () => {
     const navigate = useNavigate();
     const imagenes = [parqueadero1, parqueadero2]
+    const { nombreUsuario } = useUser();
 
     return (
         <CarruselContenedor>
             <ContenedorInfo>
-                <Contenedor1><p>Bienvenido (Username)</p></Contenedor1>
+                <Contenedor1><p>Bienvenido {nombreUsuario}</p></Contenedor1>
                 <div>
                     <Boton>
                         <TbCalendarPlus />

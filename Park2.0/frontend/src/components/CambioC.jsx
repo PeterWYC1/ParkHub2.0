@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMessage } from "../context/messageContext";
-import { useUser } from "../context/userContext";
-
-import Imagen from "../images/carrusel/parqueadero2.jpg";
-import colores from "../styles/colores";
-import { FaUserCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import styled from "styled-components";
+import { useMessage } from "../context/messageContext";
+import { useUser } from "../context/userContext";
+import Imagen from "../images/carrusel/parqueadero2.jpg";
 import LogoG from "../images/logoB.png";
 import LogoP from "../images/logo_blanco.png";
+import colores from "../styles/colores";
 import { Formulario, Input } from "../styles/varios";
 
 const Fondo = styled.div`
@@ -23,18 +20,8 @@ const Fondo = styled.div`
     padding: 80px;
 
     @media (max-width: 800px) { padding: 30px; }
-`;
-const Contenedor1 = styled.div`
-    margin: auto;
-    max-width: 1000px;
-    width: 100%;
-`;
-const ContenedorHeader = styled.div`
-    height: 60px;
-    display: flex;
+`
 
-    @media (max-width: 800px) { height: 40px; }
-`;
 const Header = styled.button`
     background-color: ${props => (props.$inLogin ? colores.moradoClaro : colores.oscuro)};
     cursor: ${props => (props.$inLogin ? "auto" : "pointer")};
@@ -111,62 +98,42 @@ const Boton = styled.button`
 `
 
 
-const CambioC = ({ inLogin }) => {
+const CambioC = () => {
  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+ const [email, cambiarEmail] = useState("");
+ const [old_password, cambiarOldPassword] = useState("");
+ const [new_password, cambiarNewPassword] = useState("");
+ const [confirmPassword, confirmarPassword] = useState("");
+
+ const { change_password } = useUser()
+
+ const { newMessage } = useMessage();
  
  const handleSubmit = async (e) => {
-  e.preventDefault();
-  let respuesta;
-
-  try {
-      if (inLogin) {
-          // ** Pestaña de login ** //
-          respuesta = await login({ 
-              email, 
-              password
-          });
-      } else {
-          // ** Pestaña de sign Up ** //
-
-          // Crear usuario
-          respuesta = await signUp({
-              name,
-              email,
-              password
-          });
-      }
-      console.log(respuesta)
-      if (typeof respuesta === 'string') newMessage(respuesta, "error");
-      else navigate("/")
-  } catch (error) {
-      console.log(error)
-      newMessage("Intentelo más tarde", "error");
-  }
+    e.preventDefault();
+    let respuesta;  
+    try {
+            respuesta = await change_password({ 
+                email: email,
+                new_password: new_password,
+                old_password: old_password,
+                confirmPassword: confirmPassword
+            })
+            if (!respuesta) newMessage("Cambio de contraseña fallido", "error");
+            else newMessage("Cambio de contraseña exitoso", "exito")
+    } catch (error) {
+        console.log(error)
+        newMessage("Intentelo más tarde", "error");
+    }
 }
  
- const handleResize = () => {
-  setWindowWidth(window.innerWidth);
-};
   
     return (
      <Fondo> 
         <Contenedor>
             <Logo src={windowWidth>550 ? LogoG : LogoP} alt="Logo ParkHub" />
-            <Formulario  onSubmit={handleSubmit}>
-                {!inLogin &&
-                    <ContInput>
-                    
-                        <Input 
-                            required
-                            name = "name"
-                            type="text"
-                            placeholder="Nombre"
-                            value={name}
-                            onChange={(e) => cambiarUsername(e.target.value)}
-                        />
-                        <FaUserCircle />
-                    </ContInput>
-                }       
+            <Formulario onSubmit={handleSubmit}>      
                 <ContInput>
                     <Input 
                         required
@@ -183,13 +150,36 @@ const CambioC = ({ inLogin }) => {
                         required
                         name = "password"
                         type="password"
-                        placeholder="Contraseña"
-                        value={password}
-                        onChange={(e) => cambiarPassword(e.target.value)}
+                        placeholder="Contraseña Vieja"
+                        value={old_password}
+                        onChange={(e) => cambiarOldPassword(e.target.value)}
                     />
                     <RiLockPasswordFill />
                 </ContInput>
-                <Boton>{inLogin ? "Iniciar Sesión" : "Registrarse"}</Boton>
+                <ContInput>
+                    <Input 
+                        required
+                        name = "password"
+                        type="password"
+                        placeholder="Contraseña Nueva"
+                        value={new_password}
+                        onChange={(e) => cambiarNewPassword(e.target.value)}
+                    />
+                    <RiLockPasswordFill />
+                </ContInput>
+                <ContInput>
+                        <Input 
+                            required
+                            name = "password"
+                            type="password"
+                            placeholder="Confirmar Contraseña"
+                            value={confirmPassword}
+                            onChange={(e) => confirmarPassword(e.target.value)}
+                        />
+                        <RiLockPasswordFill />
+                    </ContInput>
+                <Boton>Confirmar</Boton>
+                
             </Formulario>
         </Contenedor>
         </Fondo>

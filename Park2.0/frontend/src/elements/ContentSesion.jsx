@@ -70,21 +70,22 @@ const Boton = styled.button`
         height: 40px;
     }
 `
+const ContenedorBotones = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
 
 
 const ContentSesion = ({ inLogin }) => {
-    // Tamaño de la pantalla
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    // Estados con la informacion de los inputs
     const [name, cambiarUsername] = useState("");
     const [email, cambiarEmail] = useState("");
     const [password, cambiarPassword] = useState("");
+    const [confirmPassword, confirmarPassword] = useState("");
 
-    // Contexto del usuario
-    const { signUp, login } = useUser(); // Cambiado de `createUser` a `signUp`
+    const { signUp, login, getUser, setNombreUsuario } = useUser(); 
 
-    // Contexto de mensaje
     const { newMessage } = useMessage();
 
     const navigate = useNavigate();
@@ -94,10 +95,8 @@ const ContentSesion = ({ inLogin }) => {
     };
 
     useEffect(() => {
-        // Agregar el evento de cambio de tamaño de ventana
         window.addEventListener('resize', handleResize);
 
-        // Limpieza del efecto al desmontar el componente
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -109,24 +108,24 @@ const ContentSesion = ({ inLogin }) => {
 
         try {
             if (inLogin) {
-                // ** Pestaña de login ** //
                 respuesta = await login({ 
                     email, 
                     password
                 });
             } else {
-                // ** Pestaña de sign Up ** //
-
-                // Crear usuario
                 respuesta = await signUp({
                     name,
                     email,
-                    password
+                    password,
+                    confirmPassword
                 });
             }
-            console.log(respuesta)
+            
             if (typeof respuesta === 'string') newMessage(respuesta, "error");
-            else navigate("/")
+            else {
+                setNombreUsuario(await getUser(respuesta["id"]));
+                navigate("/")
+            }
         } catch (error) {
             console.log(error)
             newMessage("Intentelo más tarde", "error");
@@ -139,7 +138,6 @@ const ContentSesion = ({ inLogin }) => {
             <Formulario  onSubmit={handleSubmit}>
                 {!inLogin &&
                     <ContInput>
-                    
                         <Input 
                             required
                             name = "name"
@@ -173,7 +171,25 @@ const ContentSesion = ({ inLogin }) => {
                     />
                     <RiLockPasswordFill />
                 </ContInput>
-                <Boton>{inLogin ? "Iniciar Sesión" : "Registrarse"}</Boton>
+                {!inLogin &&
+                    <ContInput>
+                        <Input 
+                            required
+                            name = "password"
+                            type="password"
+                            placeholder="Confirmar Contraseña"
+                            value={confirmPassword}
+                            onChange={(e) => confirmarPassword(e.target.value)}
+                        />
+                        <RiLockPasswordFill />
+                    </ContInput>
+                }   
+                <ContenedorBotones>
+                    {inLogin &&
+                        <Boton onClick={() => navigate("/cambio")}>Cambiar contraseña</Boton>
+                    } 
+                    <Boton>{inLogin ? "Iniciar Sesión" : "Registrarse"}</Boton>
+                </ContenedorBotones>
             </Formulario>
         </Contenedor>
     )

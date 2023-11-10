@@ -5,6 +5,7 @@ import Menu from "../components/Menu";
 import { useUser } from "../context/userContext";
 import LogoB from "../images/logoB.png";
 import colores from "../styles/colores";
+import nombreUsuario from "./ContentSesion";
 
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};
@@ -84,15 +85,12 @@ const Header = ({ paginaActual="" }) => {
         "Principal": "/",
         "Reservar":"/reserva",
         "Historial": "/historial", 
-        "Organización": "/organizacion"
+        "Organización": "/organizacion",
     };
     const handleNavigation = (ruta) => {
         navigate(ruta);
     };
-    // const { uuid, getStorage, getUser } = useUser()
-
-    // getStorage()
-    // usuario = getUser(uuid)
+    const { nombreUsuario } = useUser();
 
     return (
         <Contenedor>
@@ -110,9 +108,10 @@ const Header = ({ paginaActual="" }) => {
                 </Botones>
             </Navegar>
             <Usuario>
-                {/* <p>{usuario ?  usuario[1] : "Anonymous"}</p> */}
+                <p
+                onClick={() => navigate("/sesion")}>Iniciar Sesión</p>
                 <p 
-                onClick={() => navigate("/perfil")}>Anonymous</p>
+                onClick={() => navigate("/perfil")}>{nombreUsuario}</p>
                 <FaUserCircle />
             </Usuario>
         </Contenedor>
