@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { UserContextProvider, useUser } from "../context/userContext";
 import colores from "../styles/colores";
 import { ContenedorSombra, Formulario, Input, Mitad } from "../styles/varios";
+import { useMessage } from "../context/messageContext";
 
 
 const ContenedorScrollV = styled.article`
@@ -61,29 +62,50 @@ h2 {
 }
 `
 const HistorialReservas = () => {
+    const { get_historial } = useUser()
+    const { newMessage } = useMessage();
+    const [reservas, setReservas] = useState([])
 
+    useEffect(() => {
+        const obtenerReservas = async () => {
+            try {
+                const reservasObtenidas = await get_historial();
+                console.log(reservasObtenidas)
+                if (reservasObtenidas == null) newMessage("No hay reservas existentes", "error");
+                else setReservas(reservasObtenidas);
+            } catch (error) {
+                newMessage("Inténtelo más tarde", "error");
+            }
+        }
 
- return( 
-        
-      <ContenedorScrollV>
-          <ContenedorReserva>
-            <Mitad>
-               <Links>
-               <div>
-               <h2>Reserva día: ()</h2>
-               </div>
-               </Links> 
-               <Links>
-               <div>
-                  <p>Numero de parqueadero: () </p>
-                  <p>Hora: () </p>
-                  <p>Fecha de creación ()</p>
-                  </div>
-               </Links>
-            </Mitad>
-          </ContenedorReserva>
-       </ContenedorScrollV>
- 
+        obtenerReservas();
+    }, [get_historial]);
+
+    return( 
+            
+        <ContenedorScrollV>
+            <ContenedorReserva>
+                <Mitad>
+                <Links>
+                        {reservas.map((reserva, index) => (
+                            <div key={index}>
+                                <h2>Fecha de reserva: {reserva.date}</h2>
+                            </div>
+                        ))}
+                </Links>
+                <Links>
+                        {reservas.map((reserva, index) => (
+                            <div key={index}>
+                                <p>Numero de parqueadero: {reserva.parking_lot_number}</p>
+                                <p>Hora: {reserva.hour}</p>
+                                <p>Fecha de creación: {reserva.date_created}</p>
+                            </div>
+                        ))}
+                </Links>
+                </Mitad>
+            </ContenedorReserva>
+        </ContenedorScrollV>
+    
 
  )
 }

@@ -30,12 +30,13 @@ h2 {
  
 
 const Historial = () => {
-
+    const { nombreUsuario } = useUser();
 
     return(
         <Layout  paginaActual="Historial">
             <ContenedorSombra>
                 <Contenedor1><h2>Historial de reservas</h2> </Contenedor1>
+                <Contenedor1><h3>{nombreUsuario}</h3></Contenedor1>
                 <HistorialReservas/>
             </ContenedorSombra>
             
