@@ -1,11 +1,13 @@
-import styled from "styled-components";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import { TbCalendarPlus } from "react-icons/tb";
 import { FaHistory } from "react-icons/fa";
-import parqueadero1 from "../images/carrusel/parqueadero1.png"
-import parqueadero2 from "../images/carrusel/parqueadero2.jpg"
+import { TbCalendarPlus } from "react-icons/tb";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import parqueadero1 from "../images/carrusel/parqueadero1.png";
+import parqueadero2 from "../images/carrusel/parqueadero2.jpg";
 import colores from "../styles/colores";
+import { useUser } from "../context/userContext";
 
 const CarruselContenedor = styled.div`
     position: relative;
@@ -22,6 +24,7 @@ const ContenedorImagen = styled.article`
     @media (max-width: 800px) { height: 300px; }
     @media (max-width: 500px) { height: 250px; }
 `
+
 const ContenedorInfo = styled.article`
     position: absolute;
     display: flex;
@@ -54,6 +57,7 @@ const ContenedorInfo = styled.article`
         > div { flex-direction: column; }
     }
 `
+
 const Boton = styled.div`
     width: 250px;
     height: 50px;
@@ -92,23 +96,44 @@ const Boton = styled.div`
     }
 `
 
+const Contenedor1 = styled.article`
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+margin: 10px auto;
+
+
+> p {
+    margin-top: 60px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+@media (max-width: 800px) {
+ 
+    p { font-size: 20px; }
+`
+
 
 const Carrusel = () => {
+    const navigate = useNavigate();
     const imagenes = [parqueadero1, parqueadero2]
+    const { nombreUsuario } = useUser();
 
     return (
         <CarruselContenedor>
             <ContenedorInfo>
-                <p>Bienvenido Anonymous</p>
+                <Contenedor1><p>Bienvenido {nombreUsuario}</p></Contenedor1>
                 <div>
                     <Boton>
                         <TbCalendarPlus />
-                        <p>Reservar</p>
+                        <p onClick={() => navigate("/reserva")}>Reservar</p>
                         <TbCalendarPlus />
                     </Boton>
                     <Boton>
                         <FaHistory />
-                        <p>Historial</p>
+                        <p onClick={() => navigate("/historial")}>Historial</p>
                         <FaHistory />
                     </Boton>
                 </div>

@@ -1,8 +1,11 @@
-import styled from "styled-components";
-import colores from "../styles/colores";
-import LogoB from "../images/logoB.png";
 import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Menu from "../components/Menu";
+import { useUser } from "../context/userContext";
+import LogoB from "../images/logoB.png";
+import colores from "../styles/colores";
+import nombreUsuario from "./ContentSesion";
 
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};
@@ -52,10 +55,20 @@ const Usuario = styled.div`
     align-items: center;
     color: ${colores.gris};
 
+    p {
+        margin-right: 15px;
+        cursor: pointer;
+        color: ${colores.gris};
+        transition: all 0.3s;
+    }
+
+    p:hover {
+        color: #fff;
+    }
+
     svg {
-        height: 40px;
-        width: 40px;
-        margin-left: 5px;
+        height: 30px;
+        width: 30px;
         cursor: pointer;
         color: #fff;
     }
@@ -67,21 +80,36 @@ const Usuario = styled.div`
 
 
 const Header = ({ paginaActual="" }) => {
-    const paginas = ["Principal", "Reservar", "Historial", "Organización"];
+    const navigate = useNavigate();
+    const paginas = {
+        "Principal": "/",
+        "Reservar":"/reserva",
+        "Historial": "/historial", 
+        "Organización": "/organizacion",
+    };
+    const handleNavigation = (ruta) => {
+        navigate(ruta);
+    };
+    const { nombreUsuario } = useUser();
 
     return (
         <Contenedor>
             <Menu paginaActual={paginaActual} />
             <Navegar>
-                <Logo src={LogoB} alt="Logo ParkHub" />
+                <Logo src={LogoB} alt="Logo ParkHub" onClick={() => navigate("/")} />
                 <Botones>
-                    {paginas.map((pagina) => (
-                        <p key={pagina} className={paginaActual===pagina ? "active" : ""}>{pagina}</p>
+                    {Object.keys(paginas).map((pagina) => (
+                        <p 
+                        key={pagina}
+                        className={paginaActual === pagina ? "active" : ""}
+                        onClick={() => handleNavigation(paginas[pagina])}
+                    >{pagina} </p>
                     ))}
                 </Botones>
             </Navegar>
             <Usuario>
-                <p>Anonymous</p>
+                <p onClick={() => navigate("/sesion")}>Iniciar Sesión</p>
+                <p>{nombreUsuario}</p>
                 <FaUserCircle />
             </Usuario>
         </Contenedor>

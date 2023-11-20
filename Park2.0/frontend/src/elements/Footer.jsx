@@ -1,8 +1,9 @@
+import { AiOutlineInstagram, AiOutlineMail } from "react-icons/ai";
+import { BsWhatsapp } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Logo from "../images/logoM.png";
 import colores from "../styles/colores";
-import Logo from "../images/logoM.png"
-import { AiOutlineMail, AiOutlineInstagram } from "react-icons/ai"
-import { BsWhatsapp } from "react-icons/bs"
 
 const ContenedorFooter = styled.footer`
     background-color: ${colores.oscuro};
@@ -138,6 +139,7 @@ const RedSocial = styled.div`
 
 
 const Footer = () => {
+    const navigate = useNavigate();
     return (
         <ContenedorFooter>
             <Contenedor>
@@ -149,21 +151,21 @@ const Footer = () => {
                 <Links>
                     <p>Links útiles</p>
                     <div>
-                        <p>Principal</p>
-                        <p>Reservar</p>
-                    </div>
-                    <div>
-                        <p>Historial</p>
-                        <p>Organización</p>
+                        <p onClick={() => navigate("/")}>Principal</p>
+                        <p onClick={() => navigate("/reserva")} >Reservar</p>
+                        <p onClick={() => navigate("/historial")} >Historial</p>
+                        <p onClick={() => navigate("/organizacion")}>Organización</p>
                     </div>
                 </Links>
 
                 <Contacto>
                     <p>Contactenos</p>
                     <div>
-                        <RedSocial> <AiOutlineMail /> </RedSocial>
-                        <RedSocial> <BsWhatsapp /> </RedSocial>
-                        <RedSocial> <AiOutlineInstagram /> </RedSocial>
+                        <RedSocial  onClick={() => window.open("mailto:parkub100@gmail.com")}> <AiOutlineMail /> </RedSocial>
+
+                        <RedSocial onClick={() => window.open("https://wa.me/+573016140593")}><BsWhatsapp /> </RedSocial>
+
+                        <RedSocial onClick={() => window.open("https://www.instagram.com/parkhub__/")}> <AiOutlineInstagram /> </RedSocial>
                     </div>
                 </Contacto>
 

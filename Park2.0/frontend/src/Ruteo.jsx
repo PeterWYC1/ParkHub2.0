@@ -1,26 +1,35 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useUser } from "./context/userContext"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import { useUser } from "./context/userContext"
 
+
+import Historial from './components/Historial';
+import Organizacion from './components/Organizacion';
 import Principal from './components/Principal';
+import Reserva from "./components/Reserva";
 import Sesion from './components/Sesion';
-import Perfil from './components/Perfil';
+import CambioC from './components/CambioC';
 
 const Ruteo = () => {
-    const { user, getStorage } = useUser();
+    // const { user, getStorage } = useUser();
 
     useEffect(() => {
-        if (!user) {
-            getStorage();
+        const savedUserData = localStorage.getItem('userData');
+        if (savedUserData) {
+          localStorage.setItem('userData', savedUserData);
         }
-      }, [user, getStorage]);
+      }, []);
 
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Principal />} />
                 <Route path='/sesion' element={<Sesion />} />
-                <Route path='/perfil' element={<Perfil />} />
+                <Route path='/reserva' element={<Reserva />} />
+                <Route path='/historial' element={<Historial />} />
+                <Route path='/Organizacion' element={<Organizacion />} />
+                <Route path='/cambio' element={<CambioC/>} />
+
             </Routes>
         </BrowserRouter>
     )

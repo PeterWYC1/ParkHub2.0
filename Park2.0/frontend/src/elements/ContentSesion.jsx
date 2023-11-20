@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/userContext"
 import { useMessage } from "../context/messageContext";
+import { useUser } from "../context/userContext";
 
+import { FaUserCircle } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 import styled from "styled-components";
-import colores from "../styles/colores";
-import { Formulario, Input } from "../styles/varios";
 import LogoG from "../images/logoB.png";
 import LogoP from "../images/logo_blanco.png";
-import { FaUserCircle } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { MdEmail } from "react-icons/md";
+import colores from "../styles/colores";
+import { Formulario, Input } from "../styles/varios";
 
 const Contenedor = styled.div`
     background-color: ${colores.moradoClaro};
@@ -70,33 +70,33 @@ const Boton = styled.button`
         height: 40px;
     }
 `
+const ContenedorBotones = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
 
 
 const ContentSesion = ({ inLogin }) => {
-    // Tamaño de la pantalla
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    // Estados con la informacion de los inputs
-    const [username, cambiarUsername] = useState("");
+    const [name, cambiarUsername] = useState("");
     const [email, cambiarEmail] = useState("");
     const [password, cambiarPassword] = useState("");
+    const [confirmPassword, confirmarPassword] = useState("");
 
-    // Contexto del usuario
-    const { createUser, login } = useUser();
+    const { signUp, login, getUser, setNombreUsuario } = useUser(); 
 
-    // Contexto de mensaje
     const { newMessage } = useMessage();
-    
+
     const navigate = useNavigate();
 
     const handleResize = () => {
         setWindowWidth(window.innerWidth);
     };
+
     useEffect(() => {
-        // Agregar el evento de cambio de tamaño de ventana
         window.addEventListener('resize', handleResize);
 
-        // Limpieza del efecto al desmontar el componente
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -108,28 +108,26 @@ const ContentSesion = ({ inLogin }) => {
 
         try {
             if (inLogin) {
-                // ** Pestaña de login ** //
-                
-                respuesta = await login({ username, password });
-            } else {
-                // ** Pestaña de sign Up ** //
-
-                // Crear usuario
-                respuesta = await createUser({
-                    username,
-                    email,
+                respuesta = await login({ 
+                    email, 
                     password
                 });
-            }
-
-            if (respuesta instanceof String) {
-                // En caso de devolver un string es que hubo un error
-                newMessage(respuesta, "error")
             } else {
-                newMessage(`Bienvenido ${username}`, "exito");
-                navigate("/");
+                respuesta = await signUp({
+                    name,
+                    email,
+                    password,
+                    confirmPassword
+                });
+            }
+            
+            if (typeof respuesta === 'string') newMessage(respuesta, "error");
+            else {
+                setNombreUsuario(await getUser(respuesta["id"]));
+                navigate("/")
             }
         } catch (error) {
+            console.log(error)
             newMessage("Intentelo más tarde", "error");
         }
     }
@@ -138,30 +136,30 @@ const ContentSesion = ({ inLogin }) => {
         <Contenedor>
             <Logo src={windowWidth>550 ? LogoG : LogoP} alt="Logo ParkHub" />
             <Formulario  onSubmit={handleSubmit}>
-                <ContInput>
-                    <Input 
-                        required
-                        name = "username"
-                        type="text"
-                        placeholder="Nombre Usuario"
-                        value={username}
-                        onChange={(e) => cambiarUsername(e.target.value)}
-                    />
-                    <FaUserCircle />
-                </ContInput>
                 {!inLogin &&
                     <ContInput>
                         <Input 
                             required
-                            name = "email"
-                            type="email"
-                            placeholder="Correo Electronico"
-                            value={email}
-                            onChange={(e) => cambiarEmail(e.target.value)}
+                            name = "name"
+                            type="text"
+                            placeholder="Nombre"
+                            value={name}
+                            onChange={(e) => cambiarUsername(e.target.value)}
                         />
-                        <MdEmail />
+                        <FaUserCircle />
                     </ContInput>
-                }
+                }       
+                <ContInput>
+                    <Input 
+                        required
+                        name = "email"
+                        type="email"
+                        placeholder="Correo Electronico"
+                        value={email}
+                        onChange={(e) => cambiarEmail(e.target.value)}
+                    />
+                    <MdEmail />
+                </ContInput>
                 <ContInput>
                     <Input 
                         required
@@ -173,7 +171,25 @@ const ContentSesion = ({ inLogin }) => {
                     />
                     <RiLockPasswordFill />
                 </ContInput>
-                <Boton>{inLogin ? "Iniciar Sesión" : "Registrarse"}</Boton>
+                {!inLogin &&
+                    <ContInput>
+                        <Input 
+                            required
+                            name = "password"
+                            type="password"
+                            placeholder="Confirmar Contraseña"
+                            value={confirmPassword}
+                            onChange={(e) => confirmarPassword(e.target.value)}
+                        />
+                        <RiLockPasswordFill />
+                    </ContInput>
+                }   
+                <ContenedorBotones>
+                    {inLogin &&
+                        <Boton onClick={() => navigate("/cambio")}>Cambiar contraseña</Boton>
+                    } 
+                    <Boton>{inLogin ? "Iniciar Sesión" : "Registrarse"}</Boton>
+                </ContenedorBotones>
             </Formulario>
         </Contenedor>
     )

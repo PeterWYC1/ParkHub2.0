@@ -5,7 +5,8 @@ const colores = {
     gris: '#BABBB1',
     blanco: '#FFFFFF',
     error: '#E34747',
-    exito: '#43A854'
+    exito: '#43A854',
+    reserva: '#43A854',
 }
 
 export default colores

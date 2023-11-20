@@ -1,17 +1,18 @@
 import styled from "styled-components";
+import EAFIT from "../images/aliados/eafit.png";
+import EIA from "../images/aliados/eia.jpg";
+import SANTAFE from "../images/aliados/santafe.png";
+import UPB from "../images/aliados/upb.png";
+import VIVA from "../images/aliados/viva.jpg";
+import def from "../images/aliados/pp2.png";
 import { ContenedorScroll } from "../styles/varios";
-import EIA from "../images/aliados/eia.jpg"
-import EAFIT from "../images/aliados/eafit.png"
-import UPB from "../images/aliados/upb.png"
-import SANTAFE from "../images/aliados/santafe.png"
-import VIVA from "../images/aliados/viva.jpg"
 
 const Contenedor = styled.article`
     margin: 20px auto;
     width: 95%;
 
     h2 { 
-        font-size: 1.1rem;
+        font-size: 1.35rem;
         text-align: center;
         margin-bottom: 5px;
     }
@@ -30,7 +31,7 @@ const ContenedorAliado = styled.img`
 `
 
 const Aliados = () => {
-    const aliados = [EIA, EAFIT, UPB, SANTAFE, VIVA];
+    const aliados = [def,def,def,def];
 
     return (
         <Contenedor>
