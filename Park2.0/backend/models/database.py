@@ -12,16 +12,8 @@ users = Table("user", meta,
     UniqueConstraint('email', name='email_UNIQUE'),  
 )
 
-
-companies = Table("company", meta,
-                     Column("id", String(36), primary_key=True),
-                     Column("name", String(100), nullable=False, unique=True),
-)
-
-
 parking_lot = Table("parking_lot", meta,
                     Column("id", String(36), primary_key=True),
-                    Column("company_id", String(36), ForeignKey('company.id'), nullable=False),
                     Column("number", String(36), nullable=False, unique=True)
 )
 
@@ -33,6 +25,13 @@ bookings = Table("booking", meta,
                 Column("date", Date, nullable=False),
                 Column("hour", String(16), nullable=False),
                 Column("date_created", DateTime, nullable=False),
+)
+
+vehicles = Table("vehicle", meta,
+    Column("plate_number", String(20), primary_key=True),
+    Column("user_id", String(36), ForeignKey("user.id"), nullable=False),
+    Column("brand", String(50), nullable=False),
+    Column("model", String(50), nullable=False),
 )
 
 meta.create_all(engine)
